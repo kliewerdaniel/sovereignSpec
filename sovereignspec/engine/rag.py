@@ -1,18 +1,47 @@
 from __future__ import annotations
 
+import hashlib
 from typing import Any
 
 from sovereignspec.engine.grammar import OllamaClient
 from sovereignspec.persistence.chroma import ChromaStore
 
 
+class EmbeddingCache:
+    def __init__(self, max_size: int = 256):
+        self._cache: dict[str, list[float]] = {}
+        self.max_size = max_size
+
+    def _key(self, text: str) -> str:
+        return hashlib.sha256(text.encode()).hexdigest()
+
+    def get(self, text: str) -> list[float] | None:
+        return self._cache.get(self._key(text))
+
+    def set(self, text: str, embedding: list[float]) -> None:
+        key = self._key(text)
+        if len(self._cache) >= self.max_size:
+            oldest = next(iter(self._cache))
+            del self._cache[oldest]
+        self._cache[key] = embedding
+
+    def clear(self) -> None:
+        self._cache.clear()
+
+
 class RAGPipeline:
     def __init__(self, chroma: ChromaStore, llm: OllamaClient):
         self.chroma = chroma
         self.llm = llm
+        self._embed_cache = EmbeddingCache()
 
     def embed_text(self, text: str) -> list[float]:
-        return self.llm.embed(text)
+        cached = self._embed_cache.get(text)
+        if cached is not None:
+            return cached
+        embedding = self.llm.embed(text)
+        self._embed_cache.set(text, embedding)
+        return embedding
 
     def search_specs(self, query: str, n_results: int = 5) -> list[dict[str, Any]]:
         return self.chroma.search("sovereignspec_specs", query, n_results=n_results)

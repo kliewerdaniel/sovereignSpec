@@ -118,7 +118,16 @@ class GraphEngine:
             return []
 
     def compute_drift_score(self, spec_id: str, constitution_text: str) -> float:
-        return 1.0
+        from sovereignspec.engine.drift import DriftTracker
+        from sovereignspec.engine.grammar import OllamaClient
+
+        try:
+            llm = OllamaClient()
+            tracker = DriftTracker(llm=llm, constitution_text=constitution_text)
+            report = tracker.compute_drift(spec_id)
+            return report.drift_score
+        except Exception:
+            return 1.0
 
     def stats(self) -> dict[str, Any]:
         node_types: dict[str, int] = {}

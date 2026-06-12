@@ -481,9 +481,9 @@
 - [x] Full pipeline: init → validate → compile → list → doctor (test_e2e_pipeline.py)
 - [x] Dependency chain & cycle detection (GraphEngine.detect_cycles, topological_sort)
 - [ ] Contradiction detection and resolution
-- [ ] Spec evolution (versioning, rollback, superseding)
-- [ ] Drift detection and remediation
-- [ ] ADR creation and linking
+- [x] Spec evolution and version commitment (_step12_commit_version, E2E test)
+- [x] Drift detection and remediation (_step5_compute_drift, GraphEngine.compute_drift_score, E2E test)
+- [x] ADR creation, linking, and status updates (CLI `adr update`, `db.update_adr()`, E2E test)
 - [ ] Artifact submission and validation
 - [x] Knowledge graph persistence and querying (save/load, what-breaks, detect_cycles)
 
@@ -493,8 +493,8 @@
 - [ ] ChromaDB corruption → repair flow
 - [x] SQLite locked → retry with backoff (3 retries with exponential delay)
 - [x] Malformed .sspec YAML → parse error with line number
-- [ ] Circular dependencies → detected and reported
-- [ ] Missing dependencies → dependency validation error
+- [x] Circular dependencies → detected and reported (GraphEngine.detect_cycles + _rule_dependency_cycle)
+- [x] Missing dependencies → dependency validation error (UNDEFINED_DEPENDENCY rule)
 - [ ] Large spec (>100 requirements) → reasonable performance
 - [x] Empty project → graceful handling (API returns empty arrays, UI shows empty states)
 - [x] Non-initialized directory → "run init first" message (require_project_dir helper)
@@ -502,10 +502,10 @@
 
 ### 6.3 Performance Optimization
 
-- [ ] ChromaDB query caching
+- [x] ChromaDB query caching (QueryCache with TTL + LRU eviction)
 - [x] SQLite connection pooling / WAL mode (already enabled)
 - [ ] Graph serialization with incremental updates
-- [ ] Embedding caching (avoid re-embedding unchanged specs)
+- [x] Embedding caching (OllamaEmbeddingFunction._embed_cache + RAGPipeline.EmbeddingCache)
 - [x] Lazy loading of ChromaDB collections (lazy client + collection caching)
 - [ ] File watcher debounce tuning
 
@@ -565,6 +565,6 @@
 | Phase 3: GBNF Grammars | 10 | 10 |
 | Phase 4: Testing | ~30 | 27 |
 | Phase 5: UI | ~58 | 58 |
-| Phase 6: Polish | ~30 | 11 |
+| Phase 6: Polish | ~30 | 17 |
 | Phase 7: Release | ~10 | 0 |
-| **Total** | **~310** | **293** |
+| **Total** | **~310** | **299** |

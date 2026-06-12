@@ -95,7 +95,14 @@ class Compiler:
         pass
 
     def _step5_compute_drift(self, spec: Specification) -> None:
-        pass
+        from sovereignspec.engine.drift import DriftTracker
+
+        constitution_text = getattr(self.context, "constitution_text", "") if self.context else ""
+        llm = getattr(self.context, "llm", None) if self.context else None
+        if constitution_text and llm:
+            tracker = DriftTracker(llm=llm, constitution_text=constitution_text)
+            report = tracker.compute_drift(spec)
+            spec._drift_score = report.drift_score
 
     def _step6_generate_implementation_plan(self, spec: Specification) -> str:
         return f"Implementation plan for {spec.id}"
@@ -116,4 +123,13 @@ class Compiler:
         pass
 
     def _step12_commit_version(self, spec: Specification) -> None:
-        pass
+        db = getattr(self.context, "db", None) if self.context else None
+        if db is None:
+            return
+        drift = getattr(spec, "_drift_score", None)
+        db.create_spec_version(
+            spec_id=spec.id,
+            version=spec.version,
+            content_hash=spec.checksum(),
+            drift_score=drift,
+        )

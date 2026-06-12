@@ -37,6 +37,35 @@ def adr_create(project_dir: str | None, title: str, context: str) -> None:
     click.echo(f"Created {file_path}")
 
 
+@adr.command(name="update")
+@click.argument("number", type=int)
+@click.option("--status", type=click.Choice(["proposed", "accepted", "deprecated", "superseded"]), help="New status")
+@click.option("--superseded-by", type=int, help="ADR number that supersedes this one")
+@click.option("--project-dir", default=None)
+def adr_update(
+    project_dir: str | None,
+    number: int,
+    status: str | None,
+    superseded_by: int | None,
+) -> None:
+    """Update an ADR's status."""
+    base = Path(require_project_dir(project_dir))
+    adr_dir = base / ".sovereignspec" / "adr"
+    file_path = adr_dir / f"ADR-{number:03d}.md"
+    if not file_path.exists():
+        click.echo(f"ADR-{number:03d} not found")
+        raise SystemExit(1)
+
+    from sovereignspec.models.adr import ADR
+
+    record = ADR.from_markdown(file_path.read_text())
+    if status:
+        from sovereignspec.models.adr import ADRStatus
+        record.status = ADRStatus(status)
+    file_path.write_text(record.to_markdown())
+    click.echo(f"Updated ADR-{number:03d} to status={record.status.value}")
+
+
 @adr.command(name="list")
 @click.option("--project-dir", default=None)
 def adr_list(project_dir: str | None) -> None:

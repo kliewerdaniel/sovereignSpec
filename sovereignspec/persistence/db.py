@@ -262,6 +262,17 @@ class Database:
         query += " ORDER BY number DESC"
         return [dict(r) for r in self.execute(query, params).fetchall()]
 
+    def update_adr(self, id: str, **kwargs: Any) -> dict[str, Any] | None:
+        allowed = {"status", "title", "file_path", "superseded_by"}
+        updates = {k: v for k, v in kwargs.items() if k in allowed}
+        if not updates:
+            return self.get_adr(id)
+        set_clause = ", ".join(f"{k} = ?" for k in updates)
+        values = list(updates.values())
+        self.execute(f"UPDATE adrs SET {set_clause} WHERE id = ?", (*values, id))
+        self.commit()
+        return self.get_adr(id)
+
     # --- Tasks CRUD ---
 
     def create_task(
