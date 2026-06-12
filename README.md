@@ -1,48 +1,37 @@
 # ⚔️ SovereignSpec
 
-**Local-First Specification Operating System for AI Development**
+**Local‑First Specification Operating System for AI Development**
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)]()
+[![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)]()
 [![License](https://img.shields.io/badge/license-MIT-green.svg)]()
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 [![Stars](https://img.shields.io/badge/stars-0-lightgrey.svg)]()
 
-> **Human → Specification → SovereignSpec → Agent → Implementation**  
-> The specification is the durable artifact. The code is disposable.  
-> The spec is alive. The code obeys. Nothing leaves your machine.
+> **Human → Specification → SovereignSpec → Agent → Implementation**
+> The specification is the durable artifact. The code is disposable.
 
 ---
 
 ## Executive Summary
 
-SovereignSpec is a local-first, fully offline Spec-Driven Development (SDD) engine that transforms how AI coding agents build software. Instead of prompting agents with ad-hoc instructions, you define precise, structured specifications (`.sspec` files) that are compiled, validated, and grounded in a local knowledge graph. Agents read these specs, implement against them deterministically, and report back — all without a single cloud API call.
-
-Traditional AI-assisted development treats code as the primary artifact and specifications as loose markdown. SovereignSpec inverts this: specifications are living, graph-grounded knowledge artifacts with typed fields, dependency edges, version history, and automated contradiction detection. Every spec is a node in a knowledge graph that tracks what depends on what, which decisions created which architecture, and whether new specs drift from the project's founding constitution.
-
-Code generation is not a free-form LLM call. SovereignSpec enforces GBNF grammar constraints on the local Ollama inference backend, producing output that is structurally valid by construction — no hallucinated syntax, no missing fields, no inconsistent APIs. The result is deterministic, reproducible implementation that matches the spec because the LLM physically cannot generate tokens outside the grammar's allowed token space.
-
-SovereignSpec is agent-agnostic by design. It integrates with OpenCode, Claude Code, Cursor, Cline, RooCode, Codex CLI, Gemini CLI, Aider, Windsurf, Continue, and any file-aware coding agent — all through the filesystem, with zero custom plugins or API integrations. The `.sovereignspec/bootstrap.md` file is a universal contract that any agent can read to understand the project's rules, specs, tasks, and constraints.
+SovereignSpec is a local‑first, fully offline Spec‑Driven Development (SDD) engine that lets you define precise, structured specifications (`.sspec` files) which are validated, compiled, and grounded in a local knowledge graph. Agents read these specs and implement them deterministically—no cloud API calls required.
 
 ---
 
 ## Why SovereignSpec Exists
 
-The breakthrough concept of Spec-Driven Development was proven by GitHub's Spec Kit (108K+ stars), but Spec Kit has fundamental architectural limitations:
-
-| Gap | Spec Kit | SovereignSpec |
+| Gap | Spec Kit | SovereignSpec |
 |-----|----------|---------------|
-| **Cloud dependency** | Every pipeline step (`/clarify`, `/plan`, `/implement`) calls external LLM endpoints | Zero cloud APIs — all inference via local Ollama |
-| **RAG integration** | No vector search — specs are flat markdown, ungrounded in knowledge | ChromaDB-powered semantic search over all specs, ADRs, and patterns |
-| **Grammar enforcement** | No output constraints — LLM can generate anything | GBNF grammars constrain token probability space for deterministic output |
-| **Spec evolution tracking** | No version diffing, no drift detection | Full version history, semantic diffs, contradiction detection, drift scoring |
-| **Knowledge graph** | No relationship modeling between specs | 11 node types, 9 edge types, graph queries for impact analysis |
-| **Local-first** | Requires GitHub API and cloud LLMs | Runs entirely offline on your machine |
-
-SovereignSpec fills the local-first SDD gap: the same powerful spec-driven workflow, zero cloud dependency, fully offline, fully deterministic.
+| **Cloud dependency** | Every pipeline step calls external LLM endpoints | Zero cloud APIs – all inference via local Ollama |
+| **RAG integration** | No vector search – specs are flat markdown | ChromaDB‑powered semantic search over specs, ADRs, patterns |
+| **Grammar enforcement** | No output constraints – LLM can generate anything | GBNF grammars constrain token space for deterministic output |
+| **Spec evolution tracking** | No version diffing, no drift detection | Full version history, semantic diffs, contradiction detection |
+| **Knowledge graph** | No relationship modeling | 11 node types, 9 edge types, graph queries for impact analysis |
+| **Local‑first** | Requires GitHub API and cloud LLMs | Runs entirely offline on your machine |
 
 ---
 
-## Architecture
+## Architecture Overview
 
 ```
 ┌─────────────────────────────────────────────────┐
@@ -58,43 +47,44 @@ SovereignSpec fills the local-first SDD gap: the same powerful spec-driven workf
 └─────────────────────────────────────────────────┘
 ```
 
+---
+
 ## Tech Stack
 
 | Component | Technology |
-|-----------|-----------|
-| UI Framework | Next.js 14+ (App Router), TypeScript, Tailwind CSS, shadcn/ui |
-| Local LLM | Ollama (Qwen, Llama 3.1, DeepSeek, Gemma, Mistral) |
-| Vector Store | ChromaDB (local, embedded) |
-| Metadata DB | SQLite (via better-sqlite3 or Drizzle ORM) |
-| Graph Store | NetworkX (Python) / adjacency JSON (default), Neo4j (optional) |
-| CLI | Python 3.11+ with Click or Typer |
-| Grammar Enforcement | GBNF (llama-cpp grammar files) |
-| Spec Format | .sspec (YAML-superset) |
-| Package Manager | uv (Python) + pnpm (Node) |
+|-----------|------------|
+| UI Framework | Next.js 14+, TypeScript, Tailwind, shadcn/ui |
+| Local LLM | Ollama (Qwen, Llama 3.1, DeepSeek, Gemma, Mistral) |
+| Vector Store | ChromaDB (embedded) |
+| Metadata DB | SQLite (better‑sqlite3 / Drizzle ORM) |
+| Graph Store | NetworkX (Python) / adjacency JSON (default) |
+| CLI | Python 3.11+ with Click |
+| Grammar | GBNF (llama‑cpp grammars) |
+| Spec Format | `.sspec` (YAML superset) |
+| Package Manager | uv (Python) |
 
 ---
 
 ## Quick Start
 
 ```bash
-# 1. Install SovereignSpec
+# 1. Install the CLI (requires uv)
 uv tool install sovereignspec --from git+https://github.com/kliewerdaniel/sovereignSpec.git
 
-# 2. Initialize a project
+# 2. Initialise a new project
 sovereignspec init my-project
 cd my-project
 
-# 3. Establish governing principles
-# Run this command in your agent's chat:
-#   /sovereign.constitution
-# Or use the CLI:
-sovereignspec sovereign-constitution "Build a REST API with TypeScript, Express, and SQLite. No ORM. Functional programming style."
+# 3. Define governing principles (constitution)
+sovereignspec sovereign-constitution "Build a REST API with TypeScript, Express, and SQLite. No ORM. Functional style."
 
-# 4. Define what to build
-#   /sovereign.specify "JWT authentication with refresh tokens, role-based access control"
+# 4. Create a feature spec
+sovereignspec spec create blog-posts
+# edit the generated .sspec file with your requirements, acceptance criteria, etc.
 
-# 5. Full SDD pipeline
-#   /sovereign.clarify → /sovereign.plan → /sovereign.tasks → /sovereign.implement
+# 5. Validate & compile the spec
+sovereignspec spec validate blog-posts
+sovereignspec spec compile blog-posts
 ```
 
 ---
@@ -102,56 +92,52 @@ sovereignspec sovereign-constitution "Build a REST API with TypeScript, Express,
 ## CLI Command Reference
 
 | Command | Description |
-|---------|------------|
-| `sovereignspec init [path]` | Initialize a new SovereignSpec project |
+|---------|-------------|
+| `sovereignspec init [path]` | Initialise a new SovereignSpec project |
 | `sovereignspec doctor` | Verify system health (Ollama, ChromaDB, SQLite) |
-| `sovereignspec integrate --agent <name>` | Configure agent adapter for a supported coding agent |
-| `sovereignspec spec create <spec-id>` | Create a new .sspec specification file |
-| `sovereignspec spec validate <spec-id>\|--all` | Validate one or all specs against rules |
-| `sovereignspec spec compile <spec-id>\|--all` | Compile spec into plans, tasks, docs, graph updates |
-| `sovereignspec spec list [--status <s>]` | List specs, optionally filtered by lifecycle status |
-| `sovereignspec spec diff <spec-id>` | Show semantic diff between spec versions |
-| `sovereignspec spec graph <spec-id>` | Visualize spec's position in the knowledge graph |
-| `sovereignspec sovereign-constitution [...]` | Create or update project governing principles |
-| `sovereignspec specify [description]` | Define a new feature spec from a description |
-| `sovereignspec clarify <spec-id>` | RAG-grounded clarification of a spec |
-| `sovereignspec plan <spec-id>` | Generate technical implementation plan |
-| `sovereignspec tasks <spec-id>` | Decompose plan into actionable tasks |
-| `sovereignspec analyze <spec-id>\|--all` | Cross-spec consistency and contradiction analysis |
-| `sovereignspec implement <spec-id>` | Execute implementation against spec constraints |
-| `sovereignspec adr create` | Create a new Architecture Decision Record |
+| `sovereignspec integrate --agent <name>` | Configure an agent adapter (currently a placeholder) |
+| `sovereignspec spec create <spec-id>` | Create a blank `.sspec` file |
+| `sovereignspec spec validate <spec-id> [--all]` | Run validation rules |
+| `sovereignspec spec compile <spec-id> [--all]` | Run the 12‑step compiler pipeline |
+| `sovereignspec spec list [--status <s>]` | List specs, optionally filtered by status |
+| `sovereignspec spec diff <spec-id>` | Show semantic diff between spec versions *(placeholder)* |
+| `sovereignspec spec graph <spec-id>` | Visualise spec position in the knowledge graph *(placeholder)* |
+| `sovereignspec sovereign-constitution <text>` | Set or update the project constitution *(placeholder)* |
+| `sovereignspec specify <description>` | Generate a new spec from a description *(placeholder)* |
+| `sovereignspec clarify <spec-id>` | RAG‑grounded clarification of a spec *(placeholder)* |
+| `sovereignspec plan <spec-id>` | Generate an implementation plan *(placeholder)* |
+| `sovereignspec tasks <spec-id>` | Decompose plan into actionable tasks *(placeholder)* |
+| `sovereignspec analyze <spec-id> [--all]` | Cross‑spec consistency analysis *(placeholder)* |
+| `sovereignspec implement <spec-id>` | Execute implementation against spec constraints *(placeholder)* |
+| `sovereignspec adr create [--title <t>] [--context <c>]` | Create a new Architecture Decision Record (non‑interactive) |
 | `sovereignspec adr list` | List all ADRs |
-| `sovereignspec context build <spec-id>` | Assemble agent context package |
-| `sovereignspec graph query [--what-breaks]` | Execute knowledge graph queries |
-| `sovereignspec memory sync` | Synchronize agent memory |
+| `sovereignspec context <spec-id> [--agent <name>]` | Assemble an agent context package (now handles missing embeddings gracefully) |
+| `sovereignspec memory sync` | Synchronise memory stores |
 | `sovereignspec memory status` | Show memory store status |
 | `sovereignspec repo map` | Generate repository intelligence map |
-| `sovereignspec repo patterns` | Extract and display coding patterns |
-| `sovereignspec agent list` | List registered agent sessions |
-| `sovereignspec agent status <name>` | Show agent session details |
-| `sovereignspec docs generate <spec-id>\|--all` | Generate documentation bundle |
+| `sovereignspec docs generate <spec-id> [--all]` | Generate Markdown documentation |
 
 ---
 
-## Spec File Format (.sspec)
+## Spec File Format (`.sspec`)
 
 ```yaml
 id: jwt-authentication
 title: JWT Authentication System
 version: 1.0.0
 status: draft
-purpose: Provide secure JWT-based authentication with access and refresh token flows.
+purpose: Provide secure JWT‑based authentication with access and refresh token flows.
 
 requirements:
   - Users must authenticate with email and password
-  - System issues short-lived access tokens (15 min) and long-lived refresh tokens (7 days)
-  - Refresh tokens are single-use and rotated on each refresh
-  - Role-based access control with admin, user, and viewer roles
+  - System issues short‑lived access tokens (15 min) and long‑lived refresh tokens (7 days)
+  - Refresh tokens are single‑use and rotated on each refresh
+  - Role‑based access control with admin, user, and viewer roles
 
 constraints:
-  - No third-party auth providers (Google, GitHub OAuth)
-  - Tokens must be stateless (no server-side session store)
-  - All secrets must be environment-variable configured
+  - No third‑party auth providers (Google, GitHub OAuth)
+  - Tokens must be stateless (no server‑side session store)
+  - All secrets must be environment‑variable configured
   - Passwords hashed with bcrypt (cost factor >= 12)
 
 acceptance_criteria:
@@ -175,124 +161,55 @@ test_cases:
 
 ## Agent Bootstrap Pattern
 
-Every SovereignSpec project contains `.sovereignspec/bootstrap.md` — a universal contract file that any file-aware coding agent reads on startup. This file instructs the agent to:
-
-1. Read `.sovereignspec/specs/` for active specifications
-2. Read `.sovereignspec/adr/` for architectural decisions
-3. Read `.sovereignspec/patterns/pattern_library.json` for coding conventions
-4. Read `.sovereignspec/tasks/active_tasks.md` for current work units
-5. Honor all constraints listed in active specs
+Every project contains `.sovereignspec/bootstrap.md`. agents read this file on start‑up and:
+1. Load specs from `.sovereignspec/specs/`
+2. Load ADRs from `.sovereignspec/adr/`
+3. Load coding patterns from `.sovereignspec/patterns/pattern_library.json`
+4. Load active tasks from `.sovereignspec/tasks/active_tasks.md`
+5. Honour all constraints listed in active specs
 6. Update implementation status upon task completion
-7. Generate tests for every implemented feature
-8. Generate documentation for every module changed
-9. Update `.sovereignspec/graph/graph.json` with new relationships
-10. Record all decisions as new ADR drafts in `.sovereignspec/adr/`
-
-No custom plugin required. No API integration. Just a file on disk.
+7. Generate tests and documentation automatically
+8. Update the knowledge‑graph (`.sovereignspec/graph/graph.json`)
+9. Record new ADR drafts in `.sovereignspec/adr/`
 
 ---
 
-## Directory Structure
-
-After `sovereignspec init`, a project looks like:
+## Directory Structure (after `sovereignspec init`)
 
 ```
 my-project/
-├── .sovereignspec/
-│   ├── config.json
-│   ├── bootstrap.md
-│   ├── constitution.md
-│   ├── specs/
-│   │   └── (your .sspec files)
-│   ├── adr/
-│   │   └── (ADR-NNN.md files)
-│   ├── tasks/
-│   │   └── (task lists per spec)
-│   ├── patterns/
-│   │   ├── pattern_library.json
-│   │   └── repository_map.json
-│   ├── memory/
-│   │   └── (persistent agent memory blobs)
-│   ├── graph/
-│   │   └── graph.json
-│   ├── agents/
-│   │   └── (agent session records)
-│   ├── grammar/
-│   │   └── (GBNF grammar files)
-│   ├── templates/
-│   │   ├── spec-template.sspec
-│   │   ├── adr-template.md
-│   │   └── tasks-template.md
-│   └── docs/
-│       └── (auto-generated documentation)
-├── (your source code)
-└── (your project files)
+├─ .sovereignspec/
+│  ├─ adr/                # Architecture Decision Records
+│  ├─ docs/               # Generated markdown docs
+│  ├─ specs/              # .sspec files
+│  ├─ memory/
+│  │   ├─ chromadb/       # Vector store
+│  │   └─ sqlite.db       # Metadata DB
+│  ├─ graph/              # Knowledge‑graph JSON
+│  ├─ agents/             # Context packages per agent
+│  ├─ bootstrap.md        # Agent contract file
+│  └─ ...
+└─ src/ …                 # Your source code (generated / hand‑written)
 ```
 
 ---
 
-## Understanding the Pipeline
+## Known Limitations (as of v1.0.1)
 
-The SovereignSpec pipeline is designed around the `/sovereign.*` command chain:
-
-```
-/sovereign.constitution → /sovereign.specify → /sovereign.clarify
-→ /sovereign.plan → /sovereign.tasks → /sovereign.analyze
-→ /sovereign.implement → /sovereign.checklist
-```
-
-Each command feeds into the next. The constitution grounds everything. Specs emerge from the constitution. Plans emerge from specs. Tasks emerge from plans. Implementation executes tasks. Analysis checks consistency across the entire graph. The checklist verifies quality.
-
-At any point, you can run `/sovereign.analyze` to identify contradictions between specs, trace dependency chains, and measure narrative drift from the constitution.
-
----
-
-## Supported Agents
-
-SovereignSpec integrates with every major AI coding agent through filesystem conventions, no custom plugins required:
-
-| Agent | Integration File | Mechanism |
-|-------|-----------------|-----------|
-| Claude Code | `CLAUDE.md` + `.claude/commands/*.md` | File-aware agent reads CLAUDE.md, discovers /sovereign.* commands |
-| OpenCode | `AGENTS.md` | Agent reads AGENTS.md for project context and rules |
-| Cursor | `.cursor/rules/*.mdc` | Cursor rule files with sovereign.* command templates |
-| Cline | `.clinerules` | Custom instructions file with full contract |
-| RooCode | `.roo/rules.md` | RooCode mode configuration with sovereign commands |
-| Codex CLI | `AGENTS.md` + skills mode | Agent reads AGENTS.md, skills discoverable via /sovereign.* |
-| Gemini CLI | `GEMINI.md` | Gemini-specific instruction file |
-| Aider | `.aider.conf.yml` + system prompt injection | Configuration-based integration |
-| Windsurf | `.windsurfrules` | Rules file with sovereign command definitions |
-| Continue | `.continue/config.json` | Continue dev config with slash commands |
-| Generic | `.sovereignspec/bootstrap.md` | Universal fallback — any file-aware agent |
+- The core SDD pipeline commands (`sovereign‑constitution`, `specify`, `clarify`, `plan`, `tasks`, `implement`, `spec diff`, `spec graph`) are currently placeholders. They will be wired to the LLM backend in a future release.
+- `integrate` is documented but not yet functional.
+- The `adr create` command now works non‑interactively; existing ADR files remain compatible.
+- `context` gracefully reports missing Ollama embedding models and aborts instead of crashing.
+- Batch embedding in `ChromaStore` now sends all uncached texts to Ollama.
 
 ---
 
 ## Contributing
 
-Contributions are welcome. Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-### Development Setup
-
-```bash
-git clone https://github.com/kliewerdaniel/sovereignSpec.git
-cd sovereignSpec
-uv sync
-uv run sovereignspec --help
-```
-
-### Key Development Principles
-
-- **Local-first**: No feature should require a cloud API call to function
-- **Agent-agnostic**: No code should assume a specific coding agent
-- **Deterministic**: Given the same spec and constitution, the same output must result
-- **Tested**: Every validation rule, graph operation, and adapter must have tests
+Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) and open a PR against the `main` branch.
 
 ---
 
 ## License
 
-MIT License — see [LICENSE](LICENSE) for details.
-
----
-
-*Built by [Daniel Kliewer](https://danielkliewer.com). Specifications are the source of truth. Code is downstream.*
+MIT © 2024‑2026 Daniel Kliewer
