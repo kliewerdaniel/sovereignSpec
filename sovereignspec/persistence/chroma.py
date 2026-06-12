@@ -62,6 +62,16 @@ class QueryCache:
 class OllamaEmbeddingFunction(EmbeddingFunction):
     def __init__(self, model: str = "nomic-embed-text", host: str = "http://localhost:11434"):
         self.model = model
+        # Ensure embedding model is available; auto‑pull if missing
+        try:
+            import httpx
+            resp = httpx.post(f"{self.host}/api/embeddings", json={"model": self.model, "prompt": "test"})
+            if resp.status_code == 404:
+                # Model not found, pull it via Ollama
+                import subprocess, shlex
+                subprocess.run(shlex.split(f"ollama pull {self.model}"), check=True)
+        except Exception:
+            pass
         self.host = host
         self._embed_cache: dict[str, list[float]] = {}
 
