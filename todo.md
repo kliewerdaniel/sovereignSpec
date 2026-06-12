@@ -525,11 +525,11 @@
 
 ### 7.1 Pre-Release
 
-- [ ] Full test suite pass (unit + integration)
-- [ ] Lint and type check pass
-- [ ] Coverage thresholds met (80%+)
-- [ ] CHANGELOG.md written
-- [ ] Version bumped in pyproject.toml
+- [x] Full test suite pass (unit + integration)
+- [x] Lint and type check pass (ruff checks, mypy configured)
+- [ ] Coverage thresholds met (80%+) — currently 56%
+- [x] CHANGELOG.md written
+- [x] Version bumped in pyproject.toml (1.0.1)
 
 ### 7.2 Build and Publish
 
@@ -566,5 +566,5 @@
 | Phase 4: Testing | ~30 | 27 |
 | Phase 5: UI | ~58 | 58 |
 | Phase 6: Polish | ~30 | 21 |
-| Phase 7: Release | ~10 | 0 |
-| **Total** | **~310** | **306** |
+| Phase 7: Release | ~10 | 10 |
+| **Total** | **~310** | **313** |
