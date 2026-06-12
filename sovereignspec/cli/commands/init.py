@@ -22,7 +22,9 @@ def init(path: str, force: bool, model: str, adapter: str) -> None:
         click.echo(f"Error: {ss_dir} already exists. Use --force to overwrite.", err=True)
         raise click.Abort()
 
-    dirs = ["specs", "adr", "tasks", "patterns", "memory", "graph", "agents", "grammar", "templates"]
+    # Ensure watch_dirs exist
+    (ss_dir / "specs").mkdir(parents=True, exist_ok=True)
+    (ss_dir / "adr").mkdir(parents=True, exist_ok=True)
     for d in dirs:
         (ss_dir / d).mkdir(parents=True, exist_ok=True)
 
@@ -41,7 +43,7 @@ def init(path: str, force: bool, model: str, adapter: str) -> None:
         "models": {
             "generation": model,
             "embeddings": "nomic-embed-text",
-            "analysis": "llama3.1:70b",
+            "analysis": "llama3.1:8b",
         },
         "ollama": {
             "host": "http://localhost:11434",

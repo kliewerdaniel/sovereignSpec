@@ -28,9 +28,11 @@ def adr_create(project_dir: str | None, title: str | None, context: str | None) 
     from sovereignspec.models.adr import ADR
 
     if not title:
-        title = click.prompt("Title", default="Untitled ADR")
+        # Use provided argument directly if given, else prompt
+        title = title if title else click.prompt("Title", default="Untitled ADR")
     if not context:
-        context = click.prompt("Context", default="No context provided")
+        # Use provided argument directly if given, else prompt
+        context = context if context else click.prompt("Context", default="No context provided")
 
     record = ADR(
         number=next_num,
