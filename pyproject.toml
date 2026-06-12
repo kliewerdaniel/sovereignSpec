@@ -53,7 +53,24 @@ python_version = "3.11"
 strict = true
 ignore_missing_imports = true
 
+[tool.coverage.run]
+source = ["sovereignspec"]
+omit = ["sovereignspec/__main__.py"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if __name__ == .__main__.:",
+    "raise AssertionError",
+    "raise NotImplementedError",
+]
+fail_under = 70
+
 [dependency-groups]
 dev = [
     "pytest>=9.0.3",
+    "pytest-cov>=6.0.0",
+    "hypothesis>=6.0.0",
 ]

@@ -332,37 +332,49 @@
 - [x] `tests/unit/test_models_spec.py` — Specification model validation
 - [x] `tests/unit/test_models_graph.py` — Graph model CRUD
 - [x] `tests/unit/test_validator.py` — All 12 rules with pass/fail cases
-- [ ] `tests/unit/test_compiler.py` — Pipeline step execution (mocked LLM)
+- [x] `tests/unit/test_compiler.py` — Pipeline step execution (mocked LLM)
 - [x] `tests/unit/test_graph.py` — Graph algorithms (traversal, dependency)
 - [x] `tests/unit/test_grammar.py` — Grammar loading and structure
-- [ ] `tests/unit/test_rag.py` — ChromaDB operations (ephemeral client)
-- [ ] `tests/unit/test_contradiction.py` — Detection algorithm
-- [ ] `tests/unit/test_drift.py` — Drift scoring algorithm
-- [ ] `tests/unit/test_repository.py` — File walking, language detection
-- [ ] `tests/unit/test_adapters.py` — Each adapter writes correct files
+- [x] `tests/unit/test_rag.py` — ChromaDB operations (ephemeral client)
+- [x] `tests/unit/test_contradiction.py` — Detection algorithm
+- [x] `tests/unit/test_drift.py` — Drift scoring algorithm
+- [x] `tests/unit/test_repository.py` — File walking, language detection
+- [x] `tests/unit/test_adapters.py` — Each adapter writes correct files
 - [x] `tests/unit/test_db.py` — SQLite CRUD for all tables
+- [x] `tests/unit/test_chroma.py` — ChromaStore collection CRUD + search
+- [x] `tests/unit/test_adr.py` — ADR model serialization/deserialization
+- [x] `tests/unit/test_task.py` — Task model validation
 
 ### 4.2 Integration Tests
 
-- [ ] `tests/integration/test_init_project.py` — Full init workflow
-- [ ] `tests/integration/test_spec_lifecycle.py` — Create → validate → compile flow
-- [ ] `tests/integration/test_agent_integration.py` — Integration file generation
-- [ ] `tests/integration/test_graph_persistence.py` — Save/load graph.json
+- [x] `tests/integration/test_init_project.py` — Full init workflow
+- [x] `tests/integration/test_spec_lifecycle.py` — Create → validate → compile flow
+- [x] `tests/integration/test_agent_integration.py` — Integration file generation
+- [x] `tests/integration/test_graph_persistence.py` — Save/load graph.json
 
 ### 4.3 LLM-in-the-Loop Tests
 
-- [ ] `tests/integration/test_llm_grammar.py` — Real Ollama grammar enforcement
-- [ ] `tests/integration/test_llm_contradiction.py` — Real contradiction detection
-- [ ] `tests/integration/test_llm_plan_generation.py` — Real plan generation
+- [x] `tests/integration/test_llm_grammar.py` — Real Ollama grammar enforcement
+- [x] `tests/integration/test_llm_contradiction.py` — Real contradiction detection
+- [x] `tests/integration/test_llm_plan_generation.py` — Real plan generation
 
-### 4.4 Test Configuration
+### 4.4 CLI Tests
+
+- [x] `tests/unit/test_cli.py` — Click CLI entry points and command help
+
+### 4.5 Test Configuration
 
 - [x] `pyproject.toml` pytest configuration
+- [x] `pyproject.toml` coverage configuration (threshold 70%)
 - [x] `conftest.py` with fixtures (tmp project, mock LLM, ephemeral ChromaDB)
 - [x] Test fixtures in `tests/fixtures/`:
 - [x] `sample-spec.sspec` — Valid spec for testing
 - [x] `sample-constitution.md` — Sample constitution
 - [x] `sample-graph.json` — Sample graph for graph tests
+
+### 4.6 Property-Based Tests
+
+- [x] `tests/property/test_models.py` — Hypothesis property-based model validation
 
 ---
 
@@ -550,8 +562,8 @@
 | Phase 1: Python Package | ~120 | 120 |
 | Phase 2: CLI | ~50 | 50 |
 | Phase 3: GBNF Grammars | 10 | 10 |
-| Phase 4: Testing | ~40 | 15 |
+| Phase 4: Testing | ~30 | 27 |
 | Phase 5: UI | ~50 | 0 |
 | Phase 6: Polish | ~25 | 0 |
 | Phase 7: Release | ~10 | 0 |
-| **Total** | **~322** | **212** |
+| **Total** | **~302** | **224** |
