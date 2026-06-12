@@ -54,6 +54,8 @@ class Specification(BaseModel):
     performance_requirements: list[PerformanceRequirement] = []
     architecture_notes: str = ""
     implementation_hints: list[str] = []
+    non_functional_requirements: list[str] = []
+    related_adrs: list[str] = []
     tags: list[str] = []
 
     @field_validator("id")

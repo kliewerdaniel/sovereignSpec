@@ -9,6 +9,7 @@ import {
   CheckSquare,
   BookOpen,
   Settings,
+  Bot,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
@@ -19,9 +20,11 @@ import { Badge } from "@/components/ui/badge";
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/projects", label: "Projects", icon: LayoutDashboard },
   { href: "/specs", label: "Specifications", icon: FileText },
   { href: "/graph", label: "Knowledge Graph", icon: GitFork },
   { href: "/tasks", label: "Tasks", icon: CheckSquare },
+  { href: "/agents", label: "Agents", icon: Bot },
   { href: "/docs", label: "Documentation", icon: BookOpen },
   { href: "/settings", label: "Settings", icon: Settings },
 ];

@@ -31,9 +31,9 @@
 | 0 | Success |
 | 1 | Validation error |
 | 2 | Compilation error |
-| 3 | Graph error |
-| 4 | Agent error |
-| 5 | LLM unavailable |
+| 3 | Ollama unavailable |
+| 4 | Not a SovereignSpec project |
+| 5 | Validation failed |
 
 ---
 
