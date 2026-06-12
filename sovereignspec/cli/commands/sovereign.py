@@ -67,10 +67,6 @@ def plan(spec_id: str, project_dir: str | None, model: str | None, tech_stack: s
 @click.argument("spec_id")
 @click.option("--project-dir", default=None)
 @model_option
-@click.command(name="tasks")
-@click.argument("spec_id")
-@click.option("--project-dir", default=None)
-@model_option
 def tasks_cmd(spec_id: str, project_dir: str | None, model: str | None) -> None:
     """Generate task decomposition for a spec."""
     client = OllamaClient()
