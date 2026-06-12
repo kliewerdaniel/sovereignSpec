@@ -308,20 +308,20 @@
 
 ### 3.1 Create Grammar Files
 
-- [ ] `.sovereignspec/grammar/spec_validation_result.gbnf`
-- [ ] `.sovereignspec/grammar/implementation_plan.gbnf`
-- [ ] `.sovereignspec/grammar/task_list.gbnf`
-- [ ] `.sovereignspec/grammar/api_spec.gbnf`
-- [ ] `.sovereignspec/grammar/adr.gbnf`
-- [ ] `.sovereignspec/grammar/test_case.gbnf`
-- [ ] `.sovereignspec/grammar/contradiction_report.gbnf`
-- [ ] `.sovereignspec/grammar/drift_report.gbnf`
+- [x] `.sovereignspec/grammar/spec_validation_result.gbnf`
+- [x] `.sovereignspec/grammar/implementation_plan.gbnf`
+- [x] `.sovereignspec/grammar/task_list.gbnf`
+- [x] `.sovereignspec/grammar/api_spec.gbnf`
+- [x] `.sovereignspec/grammar/adr.gbnf`
+- [x] `.sovereignspec/grammar/test_case.gbnf`
+- [x] `.sovereignspec/grammar/contradiction_report.gbnf`
+- [x] `.sovereignspec/grammar/drift_report.gbnf`
 
 ### 3.2 Grammar Tests
 
-- [ ] Unit test: each grammar produces valid JSON for known inputs
-- [ ] Unit test: each grammar rejects invalid outputs
-- [ ] Integration test: Ollama with grammar produces parseable output
+- [x] Unit test: each grammar produces valid JSON for known inputs
+- [x] Unit test: each grammar rejects invalid outputs
+- [x] Integration test: Ollama with grammar produces parseable output
 
 ---
 
@@ -329,18 +329,18 @@
 
 ### 4.1 Unit Tests
 
-- [ ] `tests/unit/test_models_spec.py` — Specification model validation
-- [ ] `tests/unit/test_models_graph.py` — Graph model CRUD
-- [ ] `tests/unit/test_validator.py` — All 12 rules with pass/fail cases
+- [x] `tests/unit/test_models_spec.py` — Specification model validation
+- [x] `tests/unit/test_models_graph.py` — Graph model CRUD
+- [x] `tests/unit/test_validator.py` — All 12 rules with pass/fail cases
 - [ ] `tests/unit/test_compiler.py` — Pipeline step execution (mocked LLM)
-- [ ] `tests/unit/test_graph.py` — Graph algorithms (traversal, dependency)
-- [ ] `tests/unit/test_grammar.py` — Grammar loading and structure
+- [x] `tests/unit/test_graph.py` — Graph algorithms (traversal, dependency)
+- [x] `tests/unit/test_grammar.py` — Grammar loading and structure
 - [ ] `tests/unit/test_rag.py` — ChromaDB operations (ephemeral client)
 - [ ] `tests/unit/test_contradiction.py` — Detection algorithm
 - [ ] `tests/unit/test_drift.py` — Drift scoring algorithm
 - [ ] `tests/unit/test_repository.py` — File walking, language detection
 - [ ] `tests/unit/test_adapters.py` — Each adapter writes correct files
-- [ ] `tests/unit/test_db.py` — SQLite CRUD for all tables
+- [x] `tests/unit/test_db.py` — SQLite CRUD for all tables
 
 ### 4.2 Integration Tests
 
@@ -357,12 +357,12 @@
 
 ### 4.4 Test Configuration
 
-- [ ] `pyproject.toml` pytest configuration
-- [ ] `conftest.py` with fixtures (tmp project, mock LLM, ephemeral ChromaDB)
-- [ ] Test fixtures in `tests/fixtures/`:
-  - [ ] `sample-spec.sspec` — Valid spec for testing
-  - [ ] `sample-constitution.md` — Sample constitution
-  - [ ] `sample-graph.json` — Sample graph for graph tests
+- [x] `pyproject.toml` pytest configuration
+- [x] `conftest.py` with fixtures (tmp project, mock LLM, ephemeral ChromaDB)
+- [x] Test fixtures in `tests/fixtures/`:
+- [x] `sample-spec.sspec` — Valid spec for testing
+- [x] `sample-constitution.md` — Sample constitution
+- [x] `sample-graph.json` — Sample graph for graph tests
 
 ---
 
@@ -549,9 +549,9 @@
 | Phase 0: Scaffolding | 17 | 17 |
 | Phase 1: Python Package | ~120 | 120 |
 | Phase 2: CLI | ~50 | 50 |
-| Phase 3: GBNF Grammars | 10 | 0 |
-| Phase 4: Testing | ~40 | 0 |
+| Phase 3: GBNF Grammars | 10 | 10 |
+| Phase 4: Testing | ~40 | 15 |
 | Phase 5: UI | ~50 | 0 |
 | Phase 6: Polish | ~25 | 0 |
 | Phase 7: Release | ~10 | 0 |
-| **Total** | **~322** | **17** |
+| **Total** | **~322** | **212** |

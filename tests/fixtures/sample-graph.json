@@ -1,0 +1,11 @@
+{
+  "nodes": [
+    {"id": "spec-jwt-auth", "type": "Specification", "metadata": {"title": "JWT Authentication"}},
+    {"id": "mod-src-auth", "type": "Module", "metadata": {"path": "src/auth", "language": "python"}},
+    {"id": "adr-001", "type": "ADR", "metadata": {"title": "Use JWT for Auth"}}
+  ],
+  "edges": [
+    {"source": "spec-jwt-auth", "target": "mod-src-auth", "type": "REFERENCES", "weight": 1.0},
+    {"source": "adr-001", "target": "spec-jwt-auth", "type": "REFERENCES", "weight": 1.0}
+  ]
+}

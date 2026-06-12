@@ -1,0 +1,31 @@
+# GBNF grammar for Architecture Decision Record output
+# Produces structured JSON describing an ADR
+
+root     ::= object
+object   ::= "{" ws pair ("," ws pair)* ws "}"
+pair     ::= string ":" value
+string   ::= "\"" char* "\""
+char     ::= [^"\\] | "\\" (["\\/bfnrt] | "u" [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F])
+value    ::= object | array | string | number | "true" | "false" | "null"
+number   ::= "-"? ("0" | [1-9] [0-9]*) ("." [0-9]+)? ([eE] [+-]? [0-9]+)?
+array    ::= "[" ws (value ("," ws value)*)? ws "]"
+ws       ::= [ \t\n\r]*
+
+# Top-level ADR
+top      ::= "{" ws
+             "\"number\"" ws ":" ws integer ws "," ws
+             "\"title\"" ws ":" ws string ws "," ws
+             "\"status\"" ws ":" ws status_value ws "," ws
+             "\"context\"" ws ":" ws string ws "," ws
+             "\"decision\"" ws ":" ws string ws "," ws
+             "\"rationale\"" ws ":" ws string ws "," ws
+             "\"alternatives\"" ws ":" ws alternatives_array ws "," ws
+             "\"consequences\"" ws ":" ws string ws "}"
+
+integer  ::= "0" | [1-9] [0-9]*
+status_value ::= "\"proposed\"" | "\"accepted\"" | "\"deprecated\"" | "\"superseded\""
+alternatives_array ::= "[" ws alternative ("," ws alternative)* ws "]"
+alternative ::= "{" ws
+                "\"name\"" ws ":" ws string ws "," ws
+                "\"description\"" ws ":" ws string ws "," ws
+                "\"reason_rejected\"" ws ":" ws string ws "}"

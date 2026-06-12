@@ -1,0 +1,24 @@
+# GBNF grammar for contradiction report output
+# Produces structured JSON for spec contradiction analysis
+
+root     ::= object
+object   ::= "{" ws pair ("," ws pair)* ws "}"
+pair     ::= string ":" value
+string   ::= "\"" char* "\""
+char     ::= [^"\\] | "\\" (["\\/bfnrt] | "u" [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F])
+value    ::= object | array | string | number | "true" | "false" | "null"
+number   ::= "-"? ("0" | [1-9] [0-9]*) ("." [0-9]+)? ([eE] [+-]? [0-9]+)?
+array    ::= "[" ws (value ("," ws value)*)? ws "]"
+ws       ::= [ \t\n\r]*
+
+# Top-level contradiction report
+top      ::= "{" ws
+             "\"spec_a\"" ws ":" ws string ws "," ws
+             "\"spec_b\"" ws ":" ws string ws "," ws
+             "\"contradiction_score\"" ws ":" ws float ws "," ws
+             "\"contradiction_detected\"" ws ":" ws ("true" | "false") ws "," ws
+             "\"description\"" ws ":" ws string ws "," ws
+             "\"affected_fields\"" ws ":" ws string_array ws "}"
+
+float    ::= "-"? ("0" | [1-9] [0-9]*) ("." [0-9]+)?
+string_array ::= "[" ws (string ("," ws string)*)? ws "]"

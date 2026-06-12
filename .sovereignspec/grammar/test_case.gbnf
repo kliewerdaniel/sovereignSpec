@@ -1,0 +1,28 @@
+# GBNF grammar for test case output
+# Produces structured JSON for test case generation
+
+root     ::= object
+object   ::= "{" ws pair ("," ws pair)* ws "}"
+pair     ::= string ":" value
+string   ::= "\"" char* "\""
+char     ::= [^"\\] | "\\" (["\\/bfnrt] | "u" [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F])
+value    ::= object | array | string | number | "true" | "false" | "null"
+number   ::= "-"? ("0" | [1-9] [0-9]*) ("." [0-9]+)? ([eE] [+-]? [0-9]+)?
+array    ::= "[" ws (value ("," ws value)*)? ws "]"
+ws       ::= [ \t\n\r]*
+
+# Top-level test case list
+top      ::= "{" ws
+             "\"spec_id\"" ws ":" ws string ws "," ws
+             "\"test_cases\"" ws ":" ws test_cases_array ws "}"
+
+test_cases_array ::= "[" ws test_case ("," ws test_case)* ws "]"
+test_case ::= "{" ws
+              "\"id\"" ws ":" ws string ws "," ws
+              "\"description\"" ws ":" ws string ws "," ws
+              "\"given\"" ws ":" ws string ws "," ws
+              "\"when\"" ws ":" ws string ws "," ws
+              "\"then\"" ws ":" ws string ws "," ws
+              "\"type\"" ws ":" ws type_value ws "}"
+
+type_value ::= "\"unit\"" | "\"integration\"" | "\"e2e\"" | "\"property\"" | "\"fuzz\""

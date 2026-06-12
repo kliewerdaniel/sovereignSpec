@@ -1,0 +1,36 @@
+# GBNF grammar for API specification output
+# Produces structured JSON describing REST API endpoints
+
+root     ::= object
+object   ::= "{" ws pair ("," ws pair)* ws "}"
+pair     ::= string ":" value
+string   ::= "\"" char* "\""
+char     ::= [^"\\] | "\\" (["\\/bfnrt] | "u" [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F])
+value    ::= object | array | string | number | "true" | "false" | "null"
+number   ::= "-"? ("0" | [1-9] [0-9]*) ("." [0-9]+)? ([eE] [+-]? [0-9]+)?
+array    ::= "[" ws (value ("," ws value)*)? ws "]"
+ws       ::= [ \t\n\r]*
+
+# Top-level API spec
+top      ::= "{" ws
+             "\"spec_id\"" ws ":" ws string ws "," ws
+             "\"base_path\"" ws ":" ws string ws "," ws
+             "\"endpoints\"" ws ":" ws endpoints_array ws "}"
+
+endpoints_array ::= "[" ws endpoint ("," ws endpoint)* ws "]"
+endpoint ::= "{" ws
+             "\"path\"" ws ":" ws string ws "," ws
+             "\"method\"" ws ":" ws method_value ws "," ws
+             "\"summary\"" ws ":" ws string ws "," ws
+             "\"auth_required\"" ws ":" ws ("true" | "false") ws "," ws
+             "\"request_body\"" ws ":" ws object_or_null ws "," ws
+             "\"responses\"" ws ":" ws responses_object ws "}"
+
+method_value ::= "\"GET\"" | "\"POST\"" | "\"PUT\"" | "\"PATCH\"" | "\"DELETE\"" | "\"HEAD\"" | "\"OPTIONS\""
+
+object_or_null ::= object | "null"
+
+responses_object ::= "{" ws response_pair ("," ws response_pair)* ws "}"
+response_pair ::= status_code ws ":" ws response_body
+status_code ::= "\"200\"" | "\"201\"" | "\"204\"" | "\"400\"" | "\"401\"" | "\"403\"" | "\"404\"" | "\"409\"" | "\"422\"" | "\"429\"" | "\"500\""
+response_body ::= "{" ws "\"description\"" ws ":" ws string ws "}"

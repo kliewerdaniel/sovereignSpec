@@ -52,3 +52,8 @@ ignore = ["E501"]
 python_version = "3.11"
 strict = true
 ignore_missing_imports = true
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+]

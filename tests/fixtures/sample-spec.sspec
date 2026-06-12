@@ -1,0 +1,23 @@
+id: sample-spec
+title: Sample Specification
+version: 1.0.0
+status: draft
+purpose: This is a sample specification for testing purposes.
+requirements:
+  - The system must provide a REST API for resource management
+  - The system must authenticate all requests
+constraints:
+  - No external cloud dependencies
+  - All data must be stored locally
+acceptance_criteria:
+  - All endpoints return appropriate HTTP status codes
+  - Unauthenticated requests return 401
+dependencies: []
+test_cases:
+  - id: SAMPLE-001
+    description: Health check endpoint returns 200
+    given: The server is running
+    when: A GET request is made to /health
+    then: Response status code is 200
+security_requirements:
+  - All endpoints require authentication via JWT

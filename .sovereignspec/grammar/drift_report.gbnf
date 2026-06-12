@@ -1,0 +1,23 @@
+# GBNF grammar for narrative drift report output
+# Produces structured JSON for drift analysis
+
+root     ::= object
+object   ::= "{" ws pair ("," ws pair)* ws "}"
+pair     ::= string ":" value
+string   ::= "\"" char* "\""
+char     ::= [^"\\] | "\\" (["\\/bfnrt] | "u" [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F])
+value    ::= object | array | string | number | "true" | "false" | "null"
+number   ::= "-"? ("0" | [1-9] [0-9]*) ("." [0-9]+)? ([eE] [+-]? [0-9]+)?
+array    ::= "[" ws (value ("," ws value)*)? ws "]"
+ws       ::= [ \t\n\r]*
+
+# Top-level drift report
+top      ::= "{" ws
+             "\"spec_id\"" ws ":" ws string ws "," ws
+             "\"drift_score\"" ws ":" ws float ws "," ws
+             "\"below_threshold\"" ws ":" ws ("true" | "false") ws "," ws
+             "\"analysis\"" ws ":" ws string ws "," ws
+             "\"suggested_remedies\"" ws ":" ws string_array ws "}"
+
+float    ::= "-"? ("0" | [1-9] [0-9]*) ("." [0-9]+)?
+string_array ::= "[" ws (string ("," ws string)*)? ws "]"
