@@ -106,6 +106,17 @@ class GraphEngine:
                 })
         return pairs
 
+    def detect_cycles(self) -> list[list[str]]:
+        try:
+            cycle = nx.find_cycle(self.nx, orientation="original")
+            if cycle:
+                return [[e[0] for e in cycle]]
+            return []
+        except nx.NetworkXNoCycle:
+            return []
+        except nx.NetworkXUnfeasible:
+            return []
+
     def compute_drift_score(self, spec_id: str, constitution_text: str) -> float:
         return 1.0
 

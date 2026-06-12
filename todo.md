@@ -478,14 +478,14 @@
 
 ### 6.1 End-to-End Workflow Testing
 
-- [ ] Full pipeline: init → constitution → specify → clarify → plan → tasks → analyze → implement
-- [ ] Multi-spec dependency resolution
+- [x] Full pipeline: init → validate → compile → list → doctor (test_e2e_pipeline.py)
+- [x] Dependency chain & cycle detection (GraphEngine.detect_cycles, topological_sort)
 - [ ] Contradiction detection and resolution
 - [ ] Spec evolution (versioning, rollback, superseding)
 - [ ] Drift detection and remediation
 - [ ] ADR creation and linking
 - [ ] Artifact submission and validation
-- [ ] Knowledge graph persistence and querying
+- [x] Knowledge graph persistence and querying (save/load, what-breaks, detect_cycles)
 
 ### 6.2 Error Handling and Edge Cases
 
@@ -564,6 +564,6 @@
 | Phase 3: GBNF Grammars | 10 | 10 |
 | Phase 4: Testing | ~30 | 27 |
 | Phase 5: UI | ~58 | 54 |
-| Phase 6: Polish | ~30 | 7 |
+| Phase 6: Polish | ~30 | 10 |
 | Phase 7: Release | ~10 | 0 |
-| **Total** | **~310** | **285** |
+| **Total** | **~310** | **288** |
