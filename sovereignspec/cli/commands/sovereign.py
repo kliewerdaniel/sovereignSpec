@@ -76,8 +76,11 @@ def tasks_cmd(spec_id: str, project_dir: str | None, model: str | None) -> None:
 def analyze(spec_id: str | None, project_dir: str | None, all_flag: bool) -> None:
     """Cross-spec contradiction and drift analysis."""
     target = "--all" if all_flag else spec_id
-    click.echo(f"Analyzing {target}...")
-    click.echo("  (not yet connected)")
+click.echo(f"Analyzing {target}...")
+        client = OllamaClient()
+        prompt = f"Analyze {'all specs' if all_flag else f'spec {spec_id}'} for contradictions and drift."
+        resp = client.generate(prompt=prompt, model=model or "qwen2.5-coder:32b")
+        click.echo(resp.get("response", ""))
 
 
 @click.command(name="implement")
