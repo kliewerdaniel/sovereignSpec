@@ -484,13 +484,13 @@
 - [x] Spec evolution and version commitment (_step12_commit_version, E2E test)
 - [x] Drift detection and remediation (_step5_compute_drift, GraphEngine.compute_drift_score, E2E test)
 - [x] ADR creation, linking, and status updates (CLI `adr update`, `db.update_adr()`, E2E test)
-- [ ] Artifact submission and validation
+- [x] Artifact submission and validation (E2E test: spec → task → artifact CRUD)
 - [x] Knowledge graph persistence and querying (save/load, what-breaks, detect_cycles)
 
 ### 6.2 Error Handling and Edge Cases
 
 - [x] Ollama unavailable → clear error message (ConnectionError with actionable text)
-- [ ] ChromaDB corruption → repair flow
+- [x] ChromaDB corruption → repair flow (ChromaStore.repair() + doctor --repair)
 - [x] SQLite locked → retry with backoff (3 retries with exponential delay)
 - [x] Malformed .sspec YAML → parse error with line number
 - [x] Circular dependencies → detected and reported (GraphEngine.detect_cycles + _rule_dependency_cycle)
@@ -498,13 +498,13 @@
 - [ ] Large spec (>100 requirements) → reasonable performance
 - [x] Empty project → graceful handling (API returns empty arrays, UI shows empty states)
 - [x] Non-initialized directory → "run init first" message (require_project_dir helper)
-- [ ] Permission denied → actionable error
+- [x] Permission denied → actionable error (_check_writable in db.py + chroma.py)
 
 ### 6.3 Performance Optimization
 
 - [x] ChromaDB query caching (QueryCache with TTL + LRU eviction)
 - [x] SQLite connection pooling / WAL mode (already enabled)
-- [ ] Graph serialization with incremental updates
+- [x] Graph serialization with incremental updates
 - [x] Embedding caching (OllamaEmbeddingFunction._embed_cache + RAGPipeline.EmbeddingCache)
 - [x] Lazy loading of ChromaDB collections (lazy client + collection caching)
 - [ ] File watcher debounce tuning
@@ -565,6 +565,6 @@
 | Phase 3: GBNF Grammars | 10 | 10 |
 | Phase 4: Testing | ~30 | 27 |
 | Phase 5: UI | ~58 | 58 |
-| Phase 6: Polish | ~30 | 17 |
+| Phase 6: Polish | ~30 | 21 |
 | Phase 7: Release | ~10 | 0 |
-| **Total** | **~310** | **299** |
+| **Total** | **~310** | **306** |

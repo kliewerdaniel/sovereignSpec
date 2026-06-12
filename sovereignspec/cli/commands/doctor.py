@@ -11,10 +11,13 @@ from sovereignspec.cli.main import resolve_project_dir, verbose_option, EXIT_SUC
 
 @click.command(name="doctor")
 @click.option("--project-dir", default=None)
+@click.option("--repair", is_flag=True, help="Attempt to repair ChromaDB corruption")
 @verbose_option
-def doctor(project_dir: str | None, verbose: bool) -> None:
+def doctor(project_dir: str | None, repair: bool, verbose: bool) -> None:
     """Verify system health and configuration."""
     all_healthy = True
+    base = Path(resolve_project_dir(project_dir))
+    ss_path = base / ".sovereignspec"
 
     click.echo("SovereignSpec Doctor")
     click.echo("═" * 40)
@@ -61,6 +64,17 @@ def doctor(project_dir: str | None, verbose: bool) -> None:
     except Exception as e:
         click.echo(f"  Availability: FAILED — {e}")
         all_healthy = False
+
+    if repair and not all_healthy:
+        click.echo("\nAttempting repair...")
+        try:
+            from sovereignspec.persistence.chroma import ChromaStore
+            store = ChromaStore(persist_path=ss_path / "memory" / "chromadb")
+            actions = store.repair()
+            for a in actions:
+                click.echo(f"  {a}")
+        except Exception as e:
+            click.echo(f"  Repair failed: {e}")
 
     click.echo(f"\nFilesystem:")
     memory_path = ss_path / "memory"

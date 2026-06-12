@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import os
 import time
 from pathlib import Path
 from typing import Any
@@ -8,6 +9,20 @@ from typing import Any
 import chromadb
 from chromadb import EmbeddingFunction, Embeddings
 import requests
+
+
+def _check_writable(path: Path) -> None:
+    try:
+        path.mkdir(parents=True, exist_ok=True)
+        test_file = path / ".write_test"
+        test_file.touch()
+        test_file.unlink()
+    except PermissionError:
+        raise PermissionError(
+            f"Cannot write to {path}. "
+            f"Try: sudo chown -R $(whoami) {path.parent}  # or "
+            f"chmod -R u+w {path.parent}"
+        ) from None
 
 
 class QueryCache:
@@ -89,7 +104,7 @@ class OllamaEmbeddingFunction(EmbeddingFunction):
 class ChromaStore:
     def __init__(self, persist_path: str | Path, embedding_model: str = "nomic-embed-text"):
         self.persist_path = Path(persist_path)
-        self.persist_path.mkdir(parents=True, exist_ok=True)
+        _check_writable(self.persist_path)
         self.embedding_function = OllamaEmbeddingFunction(model=embedding_model)
         self._client: chromadb.PersistentClient | None = None
         self._collections: dict[str, chromadb.Collection] = {}
@@ -185,3 +200,44 @@ class ChromaStore:
 
     def clear_cache(self) -> None:
         self._query_cache.invalidate()
+
+    def repair(self) -> list[str]:
+        """Attempt to repair ChromaDB by recreating corrupted collections.
+
+        Returns a list of actions taken.
+        """
+        actions: list[str] = []
+        try:
+            existing = self.list_collections()
+            if not existing:
+                actions.append("No collections found — nothing to repair")
+                return actions
+
+            for name in existing:
+                try:
+                    col = self._get_collection(name)
+                    col.count()
+                    actions.append(f"Collection '{name}' is accessible")
+                except Exception as e:
+                    actions.append(f"Collection '{name}' corrupted: {e}")
+                    try:
+                        self.client.delete_collection(name)
+                        actions.append(f"  → Deleted corrupted collection '{name}'")
+                    except Exception as e2:
+                        actions.append(f"  → Failed to delete '{name}': {e2}")
+
+            self._collections.clear()
+            self._query_cache.invalidate()
+            self._client = None
+
+            for name in existing:
+                try:
+                    self._get_collection(name)
+                    actions.append(f"  → Recreated collection '{name}'")
+                except Exception:
+                    pass
+
+            actions.append("Repair complete")
+        except Exception as e:
+            actions.append(f"Repair failed: {e}")
+        return actions

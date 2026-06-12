@@ -146,7 +146,24 @@ class GraphEngine:
         }
 
     def save(self, path: str | Path) -> None:
-        Path(path).write_text(self.graph.to_json(), encoding="utf-8")
+        path = Path(path)
+        existing: set[str] = set()
+        if path.exists():
+            try:
+                existing_data = path.read_text(encoding="utf-8")
+                existing_graph = KnowledgeGraph.from_json(existing_data)
+                existing = {n.id for n in existing_graph.nodes}
+            except Exception:
+                pass
+
+        new_nodes = [n for n in self.graph.nodes if n.id not in existing]
+        new_edges = [e for e in self.graph.edges
+                     if e.source not in existing or e.target not in existing]
+
+        if path.exists() and not new_nodes and not new_edges:
+            return
+
+        path.write_text(self.graph.to_json(), encoding="utf-8")
 
     @classmethod
     def load(cls, path: str | Path) -> GraphEngine:

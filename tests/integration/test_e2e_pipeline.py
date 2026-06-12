@@ -260,3 +260,41 @@ class TestFullPipeline:
                 assert store.count("test-col") == 1
                 store.delete_document("test-col", "d1")
                 assert store.count("test-col") == 0
+
+    def test_artifact_crud(self) -> None:
+        import tempfile
+        from pathlib import Path
+        from sovereignspec.persistence.db import Database
+
+        with tempfile.TemporaryDirectory() as td:
+            db = Database(Path(td) / "test.db")
+            db.run_migrations(Path(__file__).parent.parent.parent / "sovereignspec" / "persistence" / "migrations")
+
+            db.create_project("proj-1", "Test Project", "test-project")
+            db.create_specification("s-1", "proj-1", "auth-spec", "Auth Module",
+                                     "specs/auth.sspec", "abc123")
+            db.create_task("task-1", "s-1", "Implement feature")
+            art = db.create_artifact("art-1", "task-1", "code", "src/main.py")
+            assert art["id"] == "art-1"
+            assert art["artifact_type"] == "code"
+
+            got = db.get_artifact("art-1")
+            assert got is not None
+            assert got["file_path"] == "src/main.py"
+
+            items = db.list_artifacts("task-1")
+            assert len(items) == 1
+
+    def test_permission_error(self) -> None:
+        import os
+        import tempfile
+        from pathlib import Path
+        from sovereignspec.persistence.db import Database
+
+        with tempfile.TemporaryDirectory() as td:
+            readonly = Path(td) / "readonly"
+            readonly.mkdir(parents=True, exist_ok=True)
+            readonly.chmod(0o444)
+
+            with pytest.raises((PermissionError, OSError)):
+                Database(readonly / "test.db")

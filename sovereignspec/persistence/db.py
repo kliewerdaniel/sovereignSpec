@@ -1,16 +1,34 @@
 from __future__ import annotations
 
 import json
+import os
 import sqlite3
 import time
 from pathlib import Path
 from typing import Any
 
 
+def _check_writable(path: Path) -> None:
+    """Check that a path is writable, with an actionable error message."""
+    try:
+        if path.exists():
+            test_file = path / ".write_test"
+            test_file.touch()
+            test_file.unlink()
+        else:
+            path.mkdir(parents=True, exist_ok=True)
+    except PermissionError:
+        raise PermissionError(
+            f"Cannot write to {path}. "
+            f"Try: sudo chown -R $(whoami) {path.parent}  # or "
+            f"chmod -R u+w {path.parent}"
+        ) from None
+
+
 class Database:
     def __init__(self, db_path: str | Path):
         self.db_path = Path(db_path)
-        self.db_path.parent.mkdir(parents=True, exist_ok=True)
+        _check_writable(self.db_path.parent)
         self._conn: sqlite3.Connection | None = None
 
     def connect(self) -> sqlite3.Connection:
