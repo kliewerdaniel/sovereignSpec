@@ -10,7 +10,7 @@ import click
 @click.command(name="init")
 @click.argument("path", default=".", type=click.Path(file_okay=False, dir_okay=True, resolve_path=True))
 @click.option("--force", is_flag=True, help="Overwrite existing files")
-@click.option("--model", default="qwen2.5-coder:32b", help="Default Ollama model")
+@click.option("--model", default="qwen2.5-coder:7b", help="Default Ollama model (smaller)")
 @click.option("--adapter", default="generic", help="Agent adapter to configure")
 def init(path: str, force: bool, model: str, adapter: str) -> None:
     """Initialize a new SovereignSpec project at PATH."""
