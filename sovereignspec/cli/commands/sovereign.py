@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import click
 
-from sovereignspec.cli.main import require_project_dir, model_option
+from sovereignspec.cli.main import model_option, require_project_dir
 
 
 @click.command(name="sovereign-constitution")

@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 import hashlib
-import os
 import time
 from pathlib import Path
 from typing import Any
 
 import chromadb
-from chromadb import EmbeddingFunction, Embeddings
 import requests
+from chromadb import EmbeddingFunction, Embeddings
 
 
 def _check_writable(path: Path) -> None:

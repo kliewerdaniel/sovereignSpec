@@ -1,12 +1,10 @@
 from __future__ import annotations
 
-import json
-
 import pytest
 
-from sovereignspec.engine.grammar import OllamaClient
 from sovereignspec.engine.contradiction import ContradictionDetector
-from sovereignspec.models.graph import KnowledgeGraph, NodeType, EdgeType
+from sovereignspec.engine.grammar import OllamaClient
+from sovereignspec.models.graph import EdgeType, KnowledgeGraph, NodeType
 
 pytestmark = pytest.mark.skipif(
     not OllamaClient().health("qwen2.5-coder:32b"),

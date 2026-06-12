@@ -1,9 +1,8 @@
-from sovereignspec.models.spec import (
-    PerformanceRequirement,
-    SpecStatus,
-    SpecValidationError,
-    Specification,
-    TestCase,
+from sovereignspec.models.adr import ADR, ADRStatus
+from sovereignspec.models.artifact import (
+    ArtifactRecord,
+    ArtifactRegistry,
+    ArtifactType,
 )
 from sovereignspec.models.graph import (
     EdgeType,
@@ -12,13 +11,14 @@ from sovereignspec.models.graph import (
     KnowledgeGraph,
     NodeType,
 )
-from sovereignspec.models.task import Task, TaskList, TaskStatus
-from sovereignspec.models.adr import ADR, ADRStatus
-from sovereignspec.models.artifact import (
-    ArtifactRecord,
-    ArtifactRegistry,
-    ArtifactType,
+from sovereignspec.models.spec import (
+    PerformanceRequirement,
+    Specification,
+    SpecStatus,
+    SpecValidationError,
+    TestCase,
 )
+from sovereignspec.models.task import Task, TaskList, TaskStatus
 
 __all__ = [
     "Specification",

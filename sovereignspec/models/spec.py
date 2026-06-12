@@ -2,12 +2,11 @@ from __future__ import annotations
 
 import hashlib
 import re
-from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
 import yaml
-from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import BaseModel, field_validator, model_validator
 
 
 class SpecStatus(str, Enum):

@@ -2,21 +2,20 @@ from __future__ import annotations
 
 import pytest
 
-from sovereignspec.models.spec import Specification
 from sovereignspec.engine.validator import (
     ValidationContext,
     Validator,
-    create_default_validator,
-    _rule_missing_purpose,
-    _rule_missing_acceptance_criteria,
-    _rule_missing_test_cases,
-    _rule_missing_constraints,
     _rule_ambiguous_requirements,
-    _rule_undefined_dependency,
     _rule_duplicate_id,
     _rule_incomplete_security,
-    _rule_invalid_status_transition,
+    _rule_missing_acceptance_criteria,
+    _rule_missing_constraints,
+    _rule_missing_purpose,
+    _rule_missing_test_cases,
+    _rule_undefined_dependency,
+    create_default_validator,
 )
+from sovereignspec.models.spec import Specification
 
 
 @pytest.fixture

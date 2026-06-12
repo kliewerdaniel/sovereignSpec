@@ -1,16 +1,15 @@
+from sovereignspec.adapters.aider import AiderAdapter
 from sovereignspec.adapters.base import AgentAdapter
 from sovereignspec.adapters.claude_code import ClaudeCodeAdapter
-from sovereignspec.adapters.opencode import OpenCodeAdapter
-from sovereignspec.adapters.cursor import CursorAdapter
 from sovereignspec.adapters.cline import ClineAdapter
-from sovereignspec.adapters.roocode import RooCodeAdapter
 from sovereignspec.adapters.codex import CodexAdapter
-from sovereignspec.adapters.gemini_cli import GeminiCLIAdapter
-from sovereignspec.adapters.aider import AiderAdapter
-from sovereignspec.adapters.windsurf import WindsurfAdapter
 from sovereignspec.adapters.continue_ import ContinueAdapter
+from sovereignspec.adapters.cursor import CursorAdapter
+from sovereignspec.adapters.gemini_cli import GeminiCLIAdapter
 from sovereignspec.adapters.generic import GenericFilesystemAdapter
-
+from sovereignspec.adapters.opencode import OpenCodeAdapter
+from sovereignspec.adapters.roocode import RooCodeAdapter
+from sovereignspec.adapters.windsurf import WindsurfAdapter
 
 _ADAPTER_REGISTRY: dict[str, type[AgentAdapter]] = {
     "claude-code": ClaudeCodeAdapter,

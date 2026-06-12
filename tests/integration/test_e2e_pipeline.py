@@ -9,13 +9,12 @@ import pytest
 from click.testing import CliRunner
 
 from sovereignspec.cli.main import cli
-from sovereignspec.models.spec import Specification
-from sovereignspec.engine.validator import ValidationContext, create_default_validator
 from sovereignspec.engine.compiler import Compiler
 from sovereignspec.engine.graph import GraphEngine
-from sovereignspec.engine.drift import DriftTracker, DriftReport
-from sovereignspec.models.graph import KnowledgeGraph, NodeType, EdgeType
+from sovereignspec.engine.validator import ValidationContext, create_default_validator
 from sovereignspec.models.adr import ADR, ADRStatus
+from sovereignspec.models.graph import EdgeType, KnowledgeGraph, NodeType
+from sovereignspec.models.spec import Specification
 
 
 @pytest.fixture
@@ -212,6 +211,7 @@ class TestFullPipeline:
     def test_chroma_query_cache(self) -> None:
         import tempfile
         from unittest.mock import patch
+
         from sovereignspec.persistence.chroma import ChromaStore
 
         fake_embed = {"embedding": [0.1, 0.2, 0.3]}
@@ -245,6 +245,7 @@ class TestFullPipeline:
     def test_chroma_clear_and_recount(self) -> None:
         import tempfile
         from unittest.mock import patch
+
         from sovereignspec.persistence.chroma import ChromaStore
 
         fake_embed = {"embedding": [0.1, 0.2, 0.3]}
@@ -264,6 +265,7 @@ class TestFullPipeline:
     def test_artifact_crud(self) -> None:
         import tempfile
         from pathlib import Path
+
         from sovereignspec.persistence.db import Database
 
         with tempfile.TemporaryDirectory() as td:
@@ -286,9 +288,9 @@ class TestFullPipeline:
             assert len(items) == 1
 
     def test_permission_error(self) -> None:
-        import os
         import tempfile
         from pathlib import Path
+
         from sovereignspec.persistence.db import Database
 
         with tempfile.TemporaryDirectory() as td:
@@ -303,6 +305,7 @@ class TestFullPipeline:
         import tempfile
         import time
         from pathlib import Path
+
         from sovereignspec.engine.watcher import FileWatcher
 
         all_changed: list[list[Path]] = []

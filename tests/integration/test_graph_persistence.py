@@ -5,8 +5,8 @@ from pathlib import Path
 
 import pytest
 
-from sovereignspec.models.graph import KnowledgeGraph, NodeType, EdgeType
 from sovereignspec.engine.graph import GraphEngine
+from sovereignspec.models.graph import EdgeType, KnowledgeGraph, NodeType
 
 
 class TestGraphPersistence:

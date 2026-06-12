@@ -1,12 +1,10 @@
 from __future__ import annotations
 
-from datetime import date
-
-from hypothesis import given, strategies as st
+from hypothesis import given
+from hypothesis import strategies as st
 
 from sovereignspec.models.adr import ADR, ADRStatus
 from sovereignspec.models.task import Task, TaskStatus
-
 
 _printable = st.characters(min_codepoint=32, max_codepoint=126, blacklist_categories=("Cc", "Cs", "Zs"))
 

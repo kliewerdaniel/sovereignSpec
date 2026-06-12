@@ -1,14 +1,13 @@
 from __future__ import annotations
 
-import json
 import tempfile
+from collections.abc import Generator
 from pathlib import Path
-from typing import Any, Generator
 
 import pytest
 
+from sovereignspec.models.graph import EdgeType, KnowledgeGraph, NodeType
 from sovereignspec.models.spec import Specification
-from sovereignspec.models.graph import KnowledgeGraph, NodeType, EdgeType
 from sovereignspec.persistence.db import Database
 
 

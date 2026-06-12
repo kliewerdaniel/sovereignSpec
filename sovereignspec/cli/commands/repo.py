@@ -42,7 +42,7 @@ def repo_map(project_dir: str | None, verbose: bool, rebuild: bool) -> None:
 def repo_patterns(project_dir: str | None, verbose: bool) -> None:
     """Extract and display coding patterns."""
     base = Path(require_project_dir(project_dir))
-    from sovereignspec.engine.repository import RepositoryMapper, PatternExtractor
+    from sovereignspec.engine.repository import PatternExtractor, RepositoryMapper
 
     mapper = RepositoryMapper(str(base))
     extractor = PatternExtractor(mapper)

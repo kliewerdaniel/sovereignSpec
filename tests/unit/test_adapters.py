@@ -1,12 +1,10 @@
 from __future__ import annotations
 
-import tempfile
 from pathlib import Path
 
 import pytest
 
 from sovereignspec.adapters import get_adapter, list_adapters
-
 
 ADAPTER_NAMES = [
     "claude-code", "opencode", "cursor", "cline", "roocode",

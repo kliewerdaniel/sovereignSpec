@@ -91,7 +91,6 @@ def check_validation_codes() -> None:
     doc_cli = read_doc("CLI_REFERENCE.md")
     doc_spec = read_doc("SPECIFICATION_FORMAT.md")
     combined_doc = doc_cli + "\n" + doc_spec
-    documented_codes = set(re.findall(r'`([A-Z_]+)`', combined_doc))
 
     for code in actual_codes:
         check(
@@ -111,7 +110,6 @@ def check_spec_fields() -> None:
                 if isinstance(item, ast.AnnAssign) and isinstance(item.target, ast.Name):
                     actual_fields.add(item.target.id)
 
-    spec_doc = read_doc("SPECIFICATION_FORMAT.md")
     claimed_fields = [
         "id", "title", "version", "status", "purpose",
         "requirements", "constraints", "acceptance_criteria",

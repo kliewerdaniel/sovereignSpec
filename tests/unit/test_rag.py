@@ -4,8 +4,8 @@ from pathlib import Path
 
 import pytest
 
-from sovereignspec.engine.rag import RAGPipeline
 from sovereignspec.engine.grammar import OllamaClient
+from sovereignspec.engine.rag import RAGPipeline
 from sovereignspec.persistence.chroma import ChromaStore
 
 

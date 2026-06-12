@@ -4,9 +4,9 @@ import json
 from pathlib import Path
 
 import pytest
+from click.testing import CliRunner
 
 from sovereignspec.cli.commands.init import init
-from click.testing import CliRunner
 
 
 @pytest.fixture

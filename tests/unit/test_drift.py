@@ -1,12 +1,10 @@
 from __future__ import annotations
 
-import math
-
 import pytest
 
-from sovereignspec.models.spec import Specification
-from sovereignspec.engine.drift import DriftTracker, DriftReport, DriftSummary
+from sovereignspec.engine.drift import DriftReport, DriftSummary, DriftTracker
 from sovereignspec.engine.grammar import OllamaClient
+from sovereignspec.models.spec import Specification
 
 
 @pytest.fixture(autouse=True)

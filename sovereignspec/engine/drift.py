@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from typing import Any
 
 from sovereignspec.engine.grammar import OllamaClient
 from sovereignspec.models.spec import Specification

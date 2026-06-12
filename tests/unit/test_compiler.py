@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import pytest
 
+from sovereignspec.engine.compiler import Compiler
 from sovereignspec.models.spec import Specification
-from sovereignspec.engine.compiler import Compiler, CompilationResult
 
 
 class TestCompiler:

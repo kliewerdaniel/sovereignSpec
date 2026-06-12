@@ -4,7 +4,7 @@ import pytest
 
 from sovereignspec.engine.contradiction import ContradictionDetector, ContradictionPair
 from sovereignspec.engine.grammar import OllamaClient
-from sovereignspec.models.graph import KnowledgeGraph, NodeType, EdgeType
+from sovereignspec.models.graph import EdgeType, KnowledgeGraph, NodeType
 
 
 @pytest.fixture

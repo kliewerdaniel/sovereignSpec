@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-import tempfile
 from pathlib import Path
 
 import pytest
 
-from sovereignspec.engine.repository import RepositoryMapper, PatternExtractor
+from sovereignspec.engine.repository import PatternExtractor, RepositoryMapper
 
 
 @pytest.fixture

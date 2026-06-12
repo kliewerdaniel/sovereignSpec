@@ -4,7 +4,7 @@ import json
 
 import pytest
 
-from sovereignspec.engine.grammar import OllamaClient, load_grammar
+from sovereignspec.engine.grammar import OllamaClient
 
 pytestmark = pytest.mark.skipif(
     not OllamaClient().health("qwen2.5-coder:32b"),

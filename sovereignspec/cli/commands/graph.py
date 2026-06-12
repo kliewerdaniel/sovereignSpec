@@ -26,8 +26,8 @@ def graph_query(project_dir: str | None, verbose: bool, what_breaks: str | None,
         click.echo("No graph.json found. Run 'sovereignspec memory sync' first.", err=True)
         return
 
-    from sovereignspec.models.graph import KnowledgeGraph
     from sovereignspec.engine.graph import GraphEngine
+    from sovereignspec.models.graph import KnowledgeGraph
 
     kg = KnowledgeGraph.from_json(graph_path.read_text())
     engine = GraphEngine(kg)
@@ -63,8 +63,8 @@ def graph_stats(project_dir: str | None) -> None:
         click.echo("No graph.json found.", err=True)
         return
 
-    from sovereignspec.models.graph import KnowledgeGraph
     from sovereignspec.engine.graph import GraphEngine
+    from sovereignspec.models.graph import KnowledgeGraph
 
     kg = KnowledgeGraph.from_json(graph_path.read_text())
     engine = GraphEngine(kg)

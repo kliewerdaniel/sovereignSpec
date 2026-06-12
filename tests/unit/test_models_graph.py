@@ -4,7 +4,7 @@ import json
 
 import pytest
 
-from sovereignspec.models.graph import KnowledgeGraph, NodeType, EdgeType, GraphNode, GraphEdge
+from sovereignspec.models.graph import EdgeType, KnowledgeGraph, NodeType
 
 
 class TestKnowledgeGraph:

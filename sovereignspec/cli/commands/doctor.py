@@ -6,7 +6,7 @@ from pathlib import Path
 
 import click
 
-from sovereignspec.cli.main import resolve_project_dir, verbose_option, EXIT_SUCCESS, EXIT_NO_OLLAMA
+from sovereignspec.cli.main import EXIT_NO_OLLAMA, EXIT_SUCCESS, resolve_project_dir, verbose_option
 
 
 @click.command(name="doctor")
@@ -76,7 +76,7 @@ def doctor(project_dir: str | None, repair: bool, verbose: bool) -> None:
         except Exception as e:
             click.echo(f"  Repair failed: {e}")
 
-    click.echo(f"\nFilesystem:")
+    click.echo("\nFilesystem:")
     memory_path = ss_path / "memory"
     if memory_path.exists():
         click.echo(f"  Memory path: {memory_path} — OK")

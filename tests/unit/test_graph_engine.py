@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-import json
 import tempfile
 from pathlib import Path
 
-from sovereignspec.models.graph import KnowledgeGraph, NodeType, EdgeType
 from sovereignspec.engine.graph import GraphEngine
+from sovereignspec.models.graph import EdgeType, KnowledgeGraph, NodeType
 
 
 class TestGraphEngine:

@@ -6,8 +6,6 @@ from pathlib import Path
 
 import click
 
-from sovereignspec.cli.main import resolve_project_dir
-
 
 @click.command(name="init")
 @click.argument("path", default=".", type=click.Path(file_okay=False, dir_okay=True, resolve_path=True))

@@ -4,7 +4,7 @@ from pathlib import Path
 
 import click
 
-from sovereignspec.cli.main import require_project_dir, model_option
+from sovereignspec.cli.main import model_option, require_project_dir
 
 
 @click.command(name="context")
@@ -28,9 +28,9 @@ def context(spec_id: str, project_dir: str | None, model: str | None, agent: str
     context_path = base / ".sovereignspec" / "agents" / agent
     context_path.mkdir(parents=True, exist_ok=True)
 
-    from sovereignspec.persistence.chroma import ChromaStore
     from sovereignspec.engine.grammar import OllamaClient
     from sovereignspec.engine.rag import RAGPipeline
+    from sovereignspec.persistence.chroma import ChromaStore
 
     llm = OllamaClient()
     chroma = ChromaStore(str(base / ".sovereignspec" / "memory" / "chromadb"))
