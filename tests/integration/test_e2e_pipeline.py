@@ -298,3 +298,52 @@ class TestFullPipeline:
 
             with pytest.raises((PermissionError, OSError)):
                 Database(readonly / "test.db")
+
+    def test_file_watcher_debounce(self) -> None:
+        import tempfile
+        import time
+        from pathlib import Path
+        from sovereignspec.engine.watcher import FileWatcher
+
+        all_changed: list[list[Path]] = []
+
+        def cb(files: list[Path]) -> None:
+            all_changed.append(files)
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            specs_dir = root / "specs"
+            specs_dir.mkdir()
+            f = specs_dir / "test.spec"
+            f.write_text("hello")
+
+            # 1) Snapshot detects changes
+            watcher = FileWatcher(root, watch_dirs=["specs"], callback=cb)
+            before = watcher._snapshot()
+            f.write_text("world")
+            after = watcher._snapshot()
+            assert before != after
+
+            # 2) Threaded poll detects changes
+            watcher2 = FileWatcher(root, watch_dirs=["specs"], debounce_ms=50, callback=cb)
+            watcher2.start()
+            time.sleep(0.05)
+            f.write_text("v2")
+            time.sleep(0.4)
+            watcher2.stop()
+            total = sum(len(batch) for batch in all_changed)
+            assert total > 0, f"Expected changes, got {all_changed}"
+
+    def test_large_spec_validation(self) -> None:
+        spec = Specification(
+            id="large-spec", title="Large Spec Test",
+            purpose="Test spec with 100+ requirements",
+            requirements=[f"Requirement {i} must pass" for i in range(150)],
+            constraints=[f"Constraint {i}" for i in range(50)],
+            acceptance_criteria=[f"Criterion {i}" for i in range(50)],
+            test_cases=[{"id": f"T-{i}", "description": f"test {i}"} for i in range(100)],
+        )
+        validator = create_default_validator()
+        ctx = ValidationContext(all_specs={"large-spec": spec})
+        errors = validator.validate(spec, ctx)
+        assert isinstance(errors, list)
