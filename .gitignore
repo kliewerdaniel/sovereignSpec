@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+.uv/
+uv.lock
+*.so
+
+# Node
+node_modules/
+.next/
+out/
+pnpm-lock.yaml
+
+# SovereignSpec memory
+.sovereignspec/memory/
+.sovereignspec/chromadb/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local

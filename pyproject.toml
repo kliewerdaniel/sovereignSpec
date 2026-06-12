@@ -1,0 +1,54 @@
+[project]
+name = "sovereignspec"
+version = "0.1.0"
+description = "Local-first, fully offline Spec-Driven Development engine for AI coding agents"
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "Daniel Kliewer", email = "daniel@kliewer.dev" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "click>=8.1.0",
+    "chromadb>=0.5.0",
+    "pyyaml>=6.0",
+    "pydantic>=2.5.0",
+    "requests>=2.31.0",
+    "watchdog>=4.0.0",
+    "networkx>=3.2.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/kliewerdaniel/sovereignSpec"
+Repository = "https://github.com/kliewerdaniel/sovereignSpec"
+Documentation = "https://github.com/kliewerdaniel/sovereignSpec"
+
+[project.scripts]
+sovereignspec = "sovereignspec.cli.main:cli"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["sovereignspec"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true

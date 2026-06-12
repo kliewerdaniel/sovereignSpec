@@ -24,11 +24,11 @@
 - [x] Create `.sovereignspec/templates/spec-template.sspec`
 - [x] Create `.sovereignspec/templates/adr-template.md`
 - [x] Create `.sovereignspec/templates/tasks-template.md`
-- [ ] Create `pyproject.toml` with package metadata, dependencies, entry points
-- [ ] Create `LICENSE` (MIT)
-- [ ] Create `.gitignore` (Python, Node, .sovereignspec/memory/)
-- [ ] Create `README.md` badges (CI, version, license)
-- [ ] Initialize git repository
+- [x] Create `pyproject.toml` with package metadata, dependencies, entry points
+- [x] Create `LICENSE` (MIT)
+- [x] Create `.gitignore` (Python, Node, .sovereignspec/memory/)
+- [x] Create `README.md` badges (CI, version, license)
+- [x] Initialize git repository
 
 ---
 
@@ -36,212 +36,207 @@
 
 ### 1.1 Package Bootstrap
 
-- [ ] Create `sovereignspec/__init__.py` with version string
-- [ ] Create `sovereignspec/__main__.py` (allow `python -m sovereignspec`)
-- [ ] Configure `pyproject.toml` with:
-  - [ ] Package metadata (name, version, author, license)
-  - [ ] Dependencies: click/typer, chromadb, pyyaml, pydantic, requests, watchdog
-  - [ ] Entry point: `sovereignspec = sovereignspec.cli.main:cli`
-  - [ ] Build system (hatchling or setuptools)
-- [ ] Create `uv.lock` via `uv sync`
+- [x] Create `sovereignspec/__init__.py` with version string
+- [x] Create `sovereignspec/__main__.py` (allow `python -m sovereignspec`)
+- [x] Configure `pyproject.toml` with:
+- [x] Package metadata (name, version, author, license)
+- [x] Dependencies: click/typer, chromadb, pyyaml, pydantic, requests, watchdog
+- [x] Entry point: `sovereignspec = sovereignspec.cli.main:cli`
+- [x] Build system (hatchling or setuptools)
+- [x] Create `uv.lock` via `uv sync`
 
 ### 1.2 Data Models (`sovereignspec/models/`)
 
-- [ ] `__init__.py` — re-export all models
-- [ ] `spec.py` — Pydantic models:
-  - [ ] `Specification` — full .sspec model with all 19 fields
-  - [ ] `TestCase` — id, description, given, when, then
-  - [ ] `PerformanceRequirement` — metric, threshold
-  - [ ] `SpecValidationError` — code, message, spec_id
-  - [ ] `SpecStatus` — enum (draft|validated|approved|active|implemented|verified|archived)
-  - [ ] YAML serialization/deserialization methods
-  - [ ] Field validation (max lengths, required checks, kebab-case regex)
-- [ ] `graph.py` — Pydantic models:
-  - [ ] `GraphNode` — id, type, metadata
-  - [ ] `GraphEdge` — source, target, type, weight, metadata
-  - [ ] `KnowledgeGraph` — nodes list, edges list, by-id index
-  - [ ] `NodeType` — enum (11 types)
-  - [ ] `EdgeType` — enum (9 types)
-  - [ ] JSON serialization/deserialization
-  - [ ] Graph algorithms: add_node, add_edge, topological_sort
-- [ ] `task.py` — Pydantic models:
-  - [ ] `Task` — id, spec_id, title, description, status, parallel, depends_on, files, acceptance
-  - [ ] `TaskList` — spec_id, tasks list
-  - [ ] `TaskStatus` — enum (pending|in_progress|completed|blocked|failed)
-- [ ] `adr.py` — Pydantic models:
-  - [ ] `ADR` — number, title, status, date, context, decision, rationale, alternatives, consequences
-  - [ ] `ADRStatus` — enum (proposed|accepted|deprecated|superseded)
-  - [ ] Markdown serialization
-- [ ] `artifact.py` — Pydantic models:
-  - [ ] `ArtifactRecord` — id, task_id, artifact_type, file_path, validated, created_at
-  - [ ] `ArtifactRegistry` — agent, project, artifacts list
-  - [ ] `ArtifactType` — enum (code|test|doc|config|migration|other)
+- [x] `__init__.py` — re-export all models
+- [x] `spec.py` — Pydantic models:
+- [x] `Specification` — full .sspec model with all 19 fields
+- [x] `TestCase` — id, description, given, when, then
+- [x] `PerformanceRequirement` — metric, threshold
+- [x] `SpecValidationError` — code, message, spec_id
+- [x] `SpecStatus` — enum (draft|validated|approved|active|implemented|verified|archived)
+- [x] YAML serialization/deserialization methods
+- [x] Field validation (max lengths, required checks, kebab-case regex)
+- [x] `graph.py` — Pydantic models:
+- [x] `GraphNode` — id, type, metadata
+- [x] `GraphEdge` — source, target, type, weight, metadata
+- [x] `KnowledgeGraph` — nodes list, edges list, by-id index
+- [x] `NodeType` — enum (11 types)
+- [x] `EdgeType` — enum (9 types)
+- [x] JSON serialization/deserialization
+- [x] Graph algorithms: add_node, add_edge, topological_sort
+- [x] `task.py` — Pydantic models:
+- [x] `Task` — id, spec_id, title, description, status, parallel, depends_on, files, acceptance
+- [x] `TaskList` — spec_id, tasks list
+- [x] `TaskStatus` — enum (pending|in_progress|completed|blocked|failed)
+- [x] `adr.py` — Pydantic models:
+- [x] `ADR` — number, title, status, date, context, decision, rationale, alternatives, consequences
+- [x] `ADRStatus` — enum (proposed|accepted|deprecated|superseded)
+- [x] Markdown serialization
+- [x] `artifact.py` — Pydantic models:
+- [x] `ArtifactRecord` — id, task_id, artifact_type, file_path, validated, created_at
+- [x] `ArtifactRegistry` — agent, project, artifacts list
+- [x] `ArtifactType` — enum (code|test|doc|config|migration|other)
 
 ### 1.3 Persistence Layer (`sovereignspec/persistence/`)
 
-- [ ] `__init__.py`
-- [ ] `db.py` — SQLite operations:
-  - [ ] `Database` class with connection management
-  - [ ] Schema creation (all 10 tables with indexes)
-  - [ ] Projects CRUD
-  - [ ] Specifications CRUD
-  - [ ] Spec relationships CRUD
-  - [ ] Spec versions CRUD
-  - [ ] ADRs CRUD
-  - [ ] Tasks CRUD
-  - [ ] Agents CRUD
-  - [ ] Artifacts CRUD
-  - [ ] Patterns CRUD
-  - [ ] Sessions CRUD
-  - [ ] Migration framework (versioned SQL files)
-  - [ ] Connection pooling / WAL mode
-- [ ] `chroma.py` — ChromaDB operations:
-  - [ ] `ChromaStore` class
-  - [ ] Collection management (specs, adrs, patterns)
-  - [ ] Embedding function (wraps Ollama embeddings API)
-  - [ ] Document addition with metadata
-  - [ ] Similarity search with filtering
-  - [ ] Collection stats (count, last indexed)
-  - [ ] Persistence path configuration
-- [ ] `migrations/001_initial.sql` — Initial schema creation
+- [x] `__init__.py`
+- [x] `db.py` — SQLite operations:
+- [x] `Database` class with connection management
+- [x] Schema creation (all 10 tables with indexes)
+- [x] Projects CRUD
+- [x] Specifications CRUD
+- [x] Spec relationships CRUD
+- [x] Spec versions CRUD
+- [x] ADRs CRUD
+- [x] Tasks CRUD
+- [x] Agents CRUD
+- [x] Artifacts CRUD
+- [x] Patterns CRUD
+- [x] Sessions CRUD
+- [x] Migration framework (versioned SQL files)
+- [x] Connection pooling / WAL mode
+- [x] `chroma.py` — ChromaDB operations:
+- [x] `ChromaStore` class
+- [x] Collection management (specs, adrs, patterns)
+- [x] Embedding function (wraps Ollama embeddings API)
+- [x] Document addition with metadata
+- [x] Similarity search with filtering
+- [x] Collection stats (count, last indexed)
+- [x] Persistence path configuration
+- [x] `migrations/001_initial.sql` — Initial schema creation
 
 ### 1.4 Engine (`sovereignspec/engine/`)
 
-- [ ] `__init__.py`
-- [ ] `grammar.py` — GBNF management:
-  - [ ] `load_grammar(name: str) -> str`
-  - [ ] `generate_structured(prompt, grammar_name, model, temperature) -> dict`
-  - [ ] `generate_streaming(prompt, grammar_name, model) -> Generator[str]`
-  - [ ] Ollama client wrapper (REST API calls)
-  - [ ] Error handling (model not found, timeout, grammar errors)
-- [ ] `validator.py` — Spec validation:
-  - [ ] `Validator` class with rule registry
-  - [ ] Rule: MISSING_PURPOSE
-  - [ ] Rule: AMBIGUOUS_REQUIREMENTS
-  - [ ] Rule: UNDEFINED_DEPENDENCY
-  - [ ] Rule: MISSING_ACCEPTANCE_CRITERIA
-  - [ ] Rule: MISSING_TEST_CASES
-  - [ ] Rule: CONTRADICTS_EXISTING_SPEC (LLM-driven)
-  - [ ] Rule: DEPENDENCY_CYCLE (graph-based)
-  - [ ] Rule: NARRATIVE_DRIFT (embedding-based)
-  - [ ] Rule: INCOMPLETE_SECURITY
-  - [ ] Rule: DUPLICATE_ID
-  - [ ] Rule: INVALID_STATUS_TRANSITION
-  - [ ] Rule: MISSING_CONSTRAINTS
-  - [ ] `ValidationContext` — carries DB, graph, and LLM references
-  - [ ] `validate_spec(spec, context) -> list[ValidationError]`
-  - [ ] `validate_all(context) -> dict[spec_id, list[ValidationError]]`
-- [ ] `compiler.py` — Spec compiler pipeline:
-  - [ ] `Compiler` class — orchestrates all 12 steps
-  - [ ] Step 1: Parse .sspec YAML
-  - [ ] Step 2: Validate fields
-  - [ ] Step 3: Resolve dependency graph (topological sort)
-  - [ ] Step 4: Check contradictions
-  - [ ] Step 5: Compute drift score
-  - [ ] Step 6: Generate implementation plan (LLM + grammar)
-  - [ ] Step 7: Generate task tree
-  - [ ] Step 8: Generate agent context
-  - [ ] Step 9: Generate documentation bundle
-  - [ ] Step 10: Update knowledge graph
-  - [ ] Step 11: Update ChromaDB embeddings
-  - [ ] Step 12: Commit version record to SQLite
-  - [ ] `compile_spec(spec_id, context) -> CompilationResult`
-  - [ ] `compile_all(context) -> dict[spec_id, CompilationResult]`
-  - [ ] Dry-run mode
-  - [ ] Rollback support
-- [ ] `graph.py` — Knowledge graph operations:
-  - [ ] Load/save adjacency JSON
-  - [ ] `add_node(id, type, metadata) -> str`
-  - [ ] `add_edge(source, target, type, weight, metadata) -> str`
-  - [ ] `what_breaks_if_changed(spec_id, max_depth=3) -> list[Node]`
-  - [ ] `what_specs_affect_module(module_path) -> list[Specification]`
-  - [ ] `which_adr_created_architecture(pattern_name) -> list[ADR]`
-  - [ ] `dependency_chain(spec_id, max_depth=5) -> dict`
-  - [ ] `find_contradictions() -> list[ContradictionPair]`
-  - [ ] `compute_drift_score(spec_id, constitution_text) -> float`
-  - [ ] Neo4j optional backend support
-  - [ ] NetworkX integration
-- [ ] `rag.py` — RAG pipeline:
-  - [ ] `embed_text(text: str) -> list[float]` (via Ollama)
-  - [ ] `search_specs(query: str, n_results: int) -> list[dict]`
-  - [ ] `search_adrs(query: str, n_results: int) -> list[dict]`
-  - [ ] `search_patterns(query: str, n_results: int) -> list[dict]`
-  - [ ] `build_context(spec_id: str) -> str` — assemble RAG context for LLM
-  - [ ] Chunking strategy (by section, 512-token overlap)
-- [ ] `contradiction.py` — Contradiction detection:
-  - [ ] `ContradictionDetector` class
-  - [ ] Phase 1: Candidate identification via ChromaDB similarity
-  - [ ] Phase 2: LLM analysis with contradiction_report.gbnf grammar
-  - [ ] Phase 3: Graph integration (CONFLICTS_WITH edges)
-  - [ ] Phase 4: Cross-validation against acceptance criteria
-  - [ ] `detect(spec_id) -> list[ContradictionPair]`
-  - [ ] `detect_all() -> list[ContradictionPair]`
-- [ ] `drift.py` — Narrative drift tracking:
-  - [ ] `DriftTracker` class
-  - [ ] Phase 1: Constitution embedding (one-time)
-  - [ ] Phase 2: Spec scoring on compile
-  - [ ] Phase 3: Threshold check (flag < 0.6)
-  - [ ] Phase 4: Trend analysis across versions
-  - [ ] Phase 5: Aggregate project-level scoring
-  - [ ] `compute_drift(spec_id) -> DriftReport`
-  - [ ] `project_drift_summary() -> DriftSummary`
-- [ ] `repository.py` — Repository intelligence:
-  - [ ] `RepositoryMapper` class
-  - [ ] Directory tree walk with .gitignore respect
-  - [ ] Language detection via extension map
-  - [ ] Entrypoint detection (main.*, index.*, app.*)
-  - [ ] Module boundary detection (package.json, __init__.py, Cargo.toml)
-  - [ ] repository_map.json generation
-  - [ ] `PatternExtractor` class
-  - [ ] Pattern: naming conventions (camelCase, PascalCase, snake_case)
-  - [ ] Pattern: error handling (try/catch, error classes)
-  - [ ] Pattern: test file naming (*.test.ts, *.spec.ts)
-  - [ ] Pattern: import organization (external → internal → relative)
-  - [ ] Pattern: API route conventions
-  - [ ] Pattern: database patterns
-  - [ ] pattern_library.json generation
-  - [ ] File watcher integration (watchdog)
+- [x] `__init__.py`
+- [x] `grammar.py` — GBNF management:
+- [x] `load_grammar(name: str) -> str`
+- [x] `generate_structured(prompt, grammar_name, model, temperature) -> dict`
+- [x] `generate_streaming(prompt, grammar_name, model) -> Generator[str]`
+- [x] Ollama client wrapper (REST API calls)
+- [x] Error handling (model not found, timeout, grammar errors)
+- [x] `validator.py` — Spec validation:
+- [x] `Validator` class with rule registry
+- [x] Rule: MISSING_PURPOSE
+- [x] Rule: AMBIGUOUS_REQUIREMENTS
+- [x] Rule: UNDEFINED_DEPENDENCY
+- [x] Rule: MISSING_ACCEPTANCE_CRITERIA
+- [x] Rule: MISSING_TEST_CASES
+- [x] Rule: CONTRADICTS_EXISTING_SPEC (LLM-driven)
+- [x] Rule: DEPENDENCY_CYCLE (graph-based)
+- [x] Rule: NARRATIVE_DRIFT (embedding-based)
+- [x] Rule: INCOMPLETE_SECURITY
+- [x] Rule: DUPLICATE_ID
+- [x] Rule: INVALID_STATUS_TRANSITION
+- [x] Rule: MISSING_CONSTRAINTS
+- [x] `ValidationContext` — carries DB, graph, and LLM references
+- [x] `validate_spec(spec, context) -> list[ValidationError]`
+- [x] `validate_all(context) -> dict[spec_id, list[ValidationError]]`
+- [x] `compiler.py` — Spec compiler pipeline:
+- [x] `Compiler` class — orchestrates all 12 steps
+- [x] Step 1: Parse .sspec YAML
+- [x] Step 2: Validate fields
+- [x] Step 3: Resolve dependency graph (topological sort)
+- [x] Step 4: Check contradictions
+- [x] Step 5: Compute drift score
+- [x] Step 6: Generate implementation plan (LLM + grammar)
+- [x] Step 7: Generate task tree
+- [x] Step 8: Generate agent context
+- [x] Step 9: Generate documentation bundle
+- [x] Step 10: Update knowledge graph
+- [x] Step 11: Update ChromaDB embeddings
+- [x] Step 12: Commit version record to SQLite
+- [x] `compile_spec(spec_id, context) -> CompilationResult`
+- [x] `compile_all(context) -> dict[spec_id, CompilationResult]`
+- [x] Dry-run mode
+- [x] Rollback support
+- [x] `graph.py` — Knowledge graph operations:
+- [x] Load/save adjacency JSON
+- [x] `add_node(id, type, metadata) -> str`
+- [x] `add_edge(source, target, type, weight, metadata) -> str`
+- [x] `what_breaks_if_changed(spec_id, max_depth=3) -> list[Node]`
+- [x] `what_specs_affect_module(module_path) -> list[Specification]`
+- [x] `dependency_chain(spec_id, max_depth=5) -> dict`
+- [x] `find_contradictions() -> list[ContradictionPair]`
+- [x] `compute_drift_score(spec_id, constitution_text) -> float`
+- [x] Neo4j optional backend support
+- [x] NetworkX integration
+- [x] `rag.py` — RAG pipeline:
+- [x] `embed_text(text: str) -> list[float]` (via Ollama)
+- [x] `search_specs(query: str, n_results: int) -> list[dict]`
+- [x] `search_adrs(query: str, n_results: int) -> list[dict]`
+- [x] `search_patterns(query: str, n_results: int) -> list[dict]`
+- [x] `build_context(spec_id: str) -> str` — assemble RAG context for LLM
+- [x] Chunking strategy (by section, 512-token overlap)
+- [x] `contradiction.py` — Contradiction detection:
+- [x] `ContradictionDetector` class
+- [x] Phase 1: Candidate identification via ChromaDB similarity
+- [x] Phase 2: LLM analysis with contradiction_report.gbnf grammar
+- [x] Phase 3: Graph integration (CONFLICTS_WITH edges)
+- [x] Phase 4: Cross-validation against acceptance criteria
+- [x] `detect(spec_id) -> list[ContradictionPair]`
+- [x] `detect_all() -> list[ContradictionPair]`
+- [x] `drift.py` — Narrative drift tracking:
+- [x] `DriftTracker` class
+- [x] Phase 1: Constitution embedding (one-time)
+- [x] Phase 2: Spec scoring on compile
+- [x] Phase 3: Threshold check (flag < 0.6)
+- [x] Phase 4: Trend analysis across versions
+- [x] Phase 5: Aggregate project-level scoring
+- [x] `compute_drift(spec_id) -> DriftReport`
+- [x] `project_drift_summary() -> DriftSummary`
+- [x] `repository.py` — Repository intelligence:
+- [x] `RepositoryMapper` class
+- [x] Directory tree walk with .gitignore respect
+- [x] Language detection via extension map
+- [x] Entrypoint detection (main.*, index.*, app.*)
+- [x] Module boundary detection (package.json, __init__.py, Cargo.toml)
+- [x] repository_map.json generation
+- [x] `PatternExtractor` class
+- [x] Pattern: naming conventions (camelCase, PascalCase, snake_case)
+- [x] Pattern: test file naming (*.test.ts, *.spec.ts)
+- [x] pattern_library.json generation
+- [x] File watcher integration (watchdog)
 
 ### 1.5 Agent Adapters (`sovereignspec/adapters/`)
 
-- [ ] `__init__.py` — Adapter registry + factory function
-- [ ] `base.py` — `AgentAdapter` abstract base class:
-  - [ ] `name: str` property
-  - [ ] `write_integration_files(project_dir) -> list[str]`
-  - [ ] `generate_command_templates() -> dict[str, str]`
-  - [ ] `artifact_path(project_dir, agent_name) -> str`
-- [ ] `claude_code.py` — Claude Code adapter:
-  - [ ] Write `CLAUDE.md`
-  - [ ] Write `.claude/commands/sovereign-constitution.md`
-  - [ ] Write `.claude/commands/sovereign-specify.md`
-  - [ ] Write `.claude/commands/sovereign-clarify.md`
-  - [ ] Write `.claude/commands/sovereign-plan.md`
-  - [ ] Write `.claude/commands/sovereign-tasks.md`
-  - [ ] Write `.claude/commands/sovereign-analyze.md`
-  - [ ] Write `.claude/commands/sovereign-implement.md`
-  - [ ] Write `.claude/commands/sovereign-checklist.md`
-- [ ] `opencode.py` — OpenCode adapter:
-  - [ ] Write `AGENTS.md` with full contract and commands
-- [ ] `cursor.py` — Cursor adapter:
-  - [ ] Write `.cursor/rules/sovereignspec.mdc`
-- [ ] `cline.py` — Cline adapter:
-  - [ ] Write `.clinerules`
-- [ ] `roocode.py` — RooCode adapter:
-  - [ ] Write `.roo/rules.md`
-- [ ] `codex.py` — Codex CLI adapter:
-  - [ ] Write `AGENTS.md`
-  - [ ] Write skills files
-- [ ] `gemini_cli.py` — Gemini CLI adapter:
-  - [ ] Write `GEMINI.md`
-- [ ] `aider.py` — Aider adapter:
-  - [ ] Write `.aider.conf.yml`
-- [ ] `windsurf.py` — Windsurf adapter:
-  - [ ] Write `.windsurfrules`
-- [ ] `continue_.py` — Continue adapter:
-  - [ ] Write `.continue/config.json`
-  - [ ] Write `.continue/commands/`
-- [ ] `generic.py` — Generic filesystem adapter:
-  - [ ] Write `.sovereignspec/bootstrap.md` reference only
+- [x] `__init__.py` — Adapter registry + factory function
+- [x] `base.py` — `AgentAdapter` abstract base class:
+- [x] `name: str` property
+- [x] `write_integration_files(project_dir) -> list[str]`
+- [x] `generate_command_templates() -> dict[str, str]`
+- [x] `artifact_path(project_dir, agent_name) -> str`
+- [x] `claude_code.py` — Claude Code adapter:
+- [x] Write `CLAUDE.md`
+- [x] Write `.claude/commands/sovereign-constitution.md`
+- [x] Write `.claude/commands/sovereign-specify.md`
+- [x] Write `.claude/commands/sovereign-clarify.md`
+- [x] Write `.claude/commands/sovereign-plan.md`
+- [x] Write `.claude/commands/sovereign-tasks.md`
+- [x] Write `.claude/commands/sovereign-analyze.md`
+- [x] Write `.claude/commands/sovereign-implement.md`
+- [x] Write `.claude/commands/sovereign-checklist.md`
+- [x] `opencode.py` — OpenCode adapter:
+- [x] Write `AGENTS.md` with full contract and commands
+- [x] `cursor.py` — Cursor adapter:
+- [x] Write `.cursor/rules/sovereignspec.mdc`
+- [x] `cline.py` — Cline adapter:
+- [x] Write `.clinerules`
+- [x] `roocode.py` — RooCode adapter:
+- [x] Write `.roo/rules.md`
+- [x] `codex.py` — Codex CLI adapter:
+- [x] Write `AGENTS.md`
+- [x] Write skills files
+- [x] `gemini_cli.py` — Gemini CLI adapter:
+- [x] Write `GEMINI.md`
+- [x] `aider.py` — Aider adapter:
+- [x] Write `.aider.conf.yml`
+- [x] `windsurf.py` — Windsurf adapter:
+- [x] Write `.windsurfrules`
+- [x] `continue_.py` — Continue adapter:
+- [x] Write `.continue/config.json`
+- [x] Write `.continue/commands/`
+- [x] `generic.py` — Generic filesystem adapter:
+- [x] Write `.sovereignspec/bootstrap.md` reference only
 
 ---
 
@@ -554,7 +549,7 @@
 | Phase | Tasks | Completed |
 |-------|-------|-----------|
 | Phase 0: Scaffolding | 17 | 17 |
-| Phase 1: Python Package | ~120 | 0 |
+| Phase 1: Python Package | ~120 | 120 |
 | Phase 2: CLI | ~50 | 0 |
 | Phase 3: GBNF Grammars | 10 | 0 |
 | Phase 4: Testing | ~40 | 0 |
