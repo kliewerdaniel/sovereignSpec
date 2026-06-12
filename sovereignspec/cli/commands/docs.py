@@ -4,7 +4,7 @@ from pathlib import Path
 
 import click
 
-from sovereignspec.cli.main import resolve_project_dir, verbose_option
+from sovereignspec.cli.main import require_project_dir, verbose_option
 
 
 @click.command(name="docs")
@@ -15,7 +15,7 @@ from sovereignspec.cli.main import resolve_project_dir, verbose_option
 @verbose_option
 def docs(spec_id: str | None, project_dir: str | None, verbose: bool, all_flag: bool, output_format: str) -> None:
     """Generate documentation bundle for a specification."""
-    base = Path(resolve_project_dir(project_dir))
+    base = Path(require_project_dir(project_dir))
     specs_dir = base / ".sovereignspec" / "specs"
     docs_dir = base / ".sovereignspec" / "docs"
     docs_dir.mkdir(parents=True, exist_ok=True)

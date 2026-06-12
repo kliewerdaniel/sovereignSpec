@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import click
 
-from sovereignspec.cli.main import resolve_project_dir, model_option
+from sovereignspec.cli.main import require_project_dir, model_option
 
 
 @click.command(name="sovereign-constitution")
@@ -11,7 +11,7 @@ from sovereignspec.cli.main import resolve_project_dir, model_option
 @model_option
 def sovereign_constitution(description: str | None, project_dir: str | None, model: str | None) -> None:
     """Generate or update the project constitution from a description."""
-    base = resolve_project_dir(project_dir)
+    base = require_project_dir(project_dir)
     if description:
         click.echo(f"Generating constitution for: {description}")
         click.echo("  (LLM generation not yet connected — placeholder)")

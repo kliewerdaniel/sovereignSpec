@@ -4,7 +4,7 @@ from pathlib import Path
 
 import click
 
-from sovereignspec.cli.main import resolve_project_dir
+from sovereignspec.cli.main import require_project_dir
 
 
 @click.group(name="adr")
@@ -18,7 +18,7 @@ def adr() -> None:
 @click.option("--project-dir", default=None)
 def adr_create(project_dir: str | None, title: str, context: str) -> None:
     """Create a new Architecture Decision Record."""
-    base = Path(resolve_project_dir(project_dir))
+    base = Path(require_project_dir(project_dir))
     adr_dir = base / ".sovereignspec" / "adr"
     adr_dir.mkdir(parents=True, exist_ok=True)
 
@@ -41,7 +41,7 @@ def adr_create(project_dir: str | None, title: str, context: str) -> None:
 @click.option("--project-dir", default=None)
 def adr_list(project_dir: str | None) -> None:
     """List all ADRs."""
-    base = Path(resolve_project_dir(project_dir))
+    base = Path(require_project_dir(project_dir))
     adr_dir = base / ".sovereignspec" / "adr"
     if not adr_dir.exists():
         click.echo("No ADRs found.")

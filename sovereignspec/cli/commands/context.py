@@ -4,7 +4,7 @@ from pathlib import Path
 
 import click
 
-from sovereignspec.cli.main import resolve_project_dir, model_option
+from sovereignspec.cli.main import require_project_dir, model_option
 
 
 @click.command(name="context")
@@ -14,7 +14,7 @@ from sovereignspec.cli.main import resolve_project_dir, model_option
 @model_option
 def context(spec_id: str, project_dir: str | None, model: str | None, agent: str) -> None:
     """Assemble an agent context package for a specification."""
-    base = Path(resolve_project_dir(project_dir))
+    base = Path(require_project_dir(project_dir))
     specs_dir = base / ".sovereignspec" / "specs"
     spec_path = specs_dir / f"{spec_id}.sspec"
 

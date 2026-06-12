@@ -4,7 +4,7 @@ from pathlib import Path
 
 import click
 
-from sovereignspec.cli.main import resolve_project_dir, verbose_option
+from sovereignspec.cli.main import require_project_dir, verbose_option
 from sovereignspec.models.spec import Specification
 
 
@@ -18,7 +18,7 @@ def spec() -> None:
 @click.option("--project-dir", default=None)
 def spec_create(spec_id: str, project_dir: str | None) -> None:
     """Create a new .sspec specification file."""
-    base = Path(resolve_project_dir(project_dir))
+    base = Path(require_project_dir(project_dir))
     specs_dir = base / ".sovereignspec" / "specs"
     specs_dir.mkdir(parents=True, exist_ok=True)
     file_path = specs_dir / f"{spec_id}.sspec"
@@ -44,7 +44,7 @@ def spec_create(spec_id: str, project_dir: str | None) -> None:
 @verbose_option
 def spec_validate(spec_id: str | None, project_dir: str | None, verbose: bool, all_flag: bool) -> None:
     """Validate a specification against all rules."""
-    base = Path(resolve_project_dir(project_dir))
+    base = Path(require_project_dir(project_dir))
     specs_dir = base / ".sovereignspec" / "specs"
 
     if all_flag:
@@ -83,7 +83,7 @@ def spec_validate(spec_id: str | None, project_dir: str | None, verbose: bool, a
 @verbose_option
 def spec_compile(spec_id: str | None, project_dir: str | None, verbose: bool, all_flag: bool) -> None:
     """Run the compiler pipeline on a specification."""
-    base = Path(resolve_project_dir(project_dir))
+    base = Path(require_project_dir(project_dir))
     specs_dir = base / ".sovereignspec" / "specs"
     from sovereignspec.engine.compiler import Compiler
 
@@ -116,7 +116,7 @@ def spec_compile(spec_id: str | None, project_dir: str | None, verbose: bool, al
 @click.option("--project-dir", default=None)
 def spec_list(project_dir: str | None, status: str | None) -> None:
     """List all specifications."""
-    base = Path(resolve_project_dir(project_dir))
+    base = Path(require_project_dir(project_dir))
     specs_dir = base / ".sovereignspec" / "specs"
     spec_paths = sorted(specs_dir.glob("*.sspec"))
 

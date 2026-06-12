@@ -22,6 +22,14 @@ class OllamaClient:
         self.host = host.rstrip("/")
         self.timeout = timeout
 
+    def _check_connectivity(self) -> None:
+        if not self.health():
+            msg = (
+                f"Cannot connect to Ollama at {self.host}. "
+                "Ensure Ollama is running (ollama serve) and accessible."
+            )
+            raise ConnectionError(msg)
+
     def generate(
         self,
         prompt: str,
@@ -30,6 +38,14 @@ class OllamaClient:
         temperature: float = 0.1,
         format: str | None = "json",
     ) -> dict[str, Any]:
+        self._check_connectivity()
+        if model and not self.health(model):
+            msg = (
+                f"Model '{model}' is not available. "
+                f"Run: ollama pull {model}"
+            )
+            raise RuntimeError(msg)
+
         payload: dict[str, Any] = {
             "model": model,
             "prompt": prompt,
@@ -44,13 +60,25 @@ class OllamaClient:
         if grammar_name:
             payload["options"]["grammar"] = load_grammar(grammar_name)
 
-        resp = requests.post(
-            f"{self.host}/api/generate",
-            json=payload,
-            timeout=self.timeout,
-        )
-        resp.raise_for_status()
-        return resp.json()
+        try:
+            resp = requests.post(
+                f"{self.host}/api/generate",
+                json=payload,
+                timeout=self.timeout,
+            )
+            resp.raise_for_status()
+            return resp.json()
+        except requests.ConnectionError:
+            raise ConnectionError(
+                f"Cannot connect to Ollama at {self.host}. "
+                "Ensure Ollama is running (ollama serve)."
+            )
+        except requests.HTTPError as e:
+            if resp.status_code == 404:
+                raise RuntimeError(
+                    f"Model '{model}' not found. Run: ollama pull {model}"
+                )
+            raise RuntimeError(f"Ollama API error ({resp.status_code}): {e}")
 
     def generate_streaming(
         self,
@@ -58,6 +86,10 @@ class OllamaClient:
         model: str = "qwen2.5-coder:32b",
         grammar_name: str | None = None,
     ) -> Generator[str, None, None]:
+        self._check_connectivity()
+        if model and not self.health(model):
+            raise RuntimeError(f"Model '{model}' not found. Run: ollama pull {model}")
+
         payload: dict[str, Any] = {
             "model": model,
             "prompt": prompt,
@@ -70,13 +102,24 @@ class OllamaClient:
         if grammar_name:
             payload["options"]["grammar"] = load_grammar(grammar_name)
 
-        resp = requests.post(
-            f"{self.host}/api/generate",
-            json=payload,
-            timeout=self.timeout,
-            stream=True,
-        )
-        resp.raise_for_status()
+        try:
+            resp = requests.post(
+                f"{self.host}/api/generate",
+                json=payload,
+                timeout=self.timeout,
+                stream=True,
+            )
+            resp.raise_for_status()
+        except requests.ConnectionError:
+            raise ConnectionError(
+                f"Cannot connect to Ollama at {self.host}. "
+                "Ensure Ollama is running (ollama serve)."
+            )
+        except requests.HTTPError as e:
+            if resp.status_code == 404:
+                raise RuntimeError(f"Model '{model}' not found. Run: ollama pull {model}")
+            raise RuntimeError(f"Ollama API error ({resp.status_code}): {e}")
+
         for line in resp.iter_lines():
             if line:
                 data = line.decode("utf-8")
@@ -92,13 +135,26 @@ class OllamaClient:
                     continue
 
     def embed(self, text: str, model: str = "nomic-embed-text") -> list[float]:
-        resp = requests.post(
-            f"{self.host}/api/embeddings",
-            json={"model": model, "prompt": text},
-            timeout=30,
-        )
-        resp.raise_for_status()
-        return resp.json()["embedding"]
+        self._check_connectivity()
+        if model and not self.health(model):
+            raise RuntimeError(f"Embedding model '{model}' not found. Run: ollama pull {model}")
+        try:
+            resp = requests.post(
+                f"{self.host}/api/embeddings",
+                json={"model": model, "prompt": text},
+                timeout=30,
+            )
+            resp.raise_for_status()
+            return resp.json()["embedding"]
+        except requests.ConnectionError:
+            raise ConnectionError(
+                f"Cannot connect to Ollama at {self.host}. "
+                "Ensure Ollama is running (ollama serve)."
+            )
+        except requests.HTTPError as e:
+            if resp.status_code == 404:
+                raise RuntimeError(f"Model '{model}' not found. Run: ollama pull {model}")
+            raise RuntimeError(f"Ollama API error ({resp.status_code}): {e}")
 
     def health(self, model: str | None = None) -> bool:
         try:

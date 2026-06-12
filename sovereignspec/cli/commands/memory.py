@@ -5,7 +5,7 @@ from pathlib import Path
 
 import click
 
-from sovereignspec.cli.main import resolve_project_dir, verbose_option
+from sovereignspec.cli.main import require_project_dir, verbose_option
 
 
 @click.group(name="memory")
@@ -20,7 +20,7 @@ def memory() -> None:
 @verbose_option
 def memory_sync(project_dir: str | None, verbose: bool, rebuild_graph: bool, rebuild_embeddings: bool) -> None:
     """Sync memory stores (SQLite, ChromaDB, graph)."""
-    base = Path(resolve_project_dir(project_dir)) / ".sovereignspec"
+    base = Path(require_project_dir(project_dir)) / ".sovereignspec"
 
     click.echo("Syncing memory stores...")
 
@@ -52,7 +52,7 @@ def memory_sync(project_dir: str | None, verbose: bool, rebuild_graph: bool, reb
 @click.option("--project-dir", default=None)
 def memory_status(project_dir: str | None) -> None:
     """Show memory store status."""
-    base = Path(resolve_project_dir(project_dir)) / ".sovereignspec"
+    base = Path(require_project_dir(project_dir)) / ".sovereignspec"
 
     try:
         from sovereignspec.persistence import Database

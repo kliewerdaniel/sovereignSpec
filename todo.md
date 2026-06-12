@@ -382,90 +382,90 @@
 
 ### 5.1 Project Setup
 
-- [ ] Initialize `ui/` with `pnpm create next-app`
-- [ ] Configure TypeScript strict mode
-- [ ] Install and configure Tailwind CSS
-- [ ] Install and configure shadcn/ui
-- [ ] Set up project path aliases
+- [x] Initialize `ui/` with `pnpm create next-app`
+- [x] Configure TypeScript strict mode
+- [x] Install and configure Tailwind CSS
+- [x] Install and configure shadcn/ui
+- [x] Set up project path aliases
 
 ### 5.2 Core Layout
 
-- [ ] Root layout with sidebar navigation
-- [ ] Theme provider (light/dark)
-- [ ] Responsive design system
+- [x] Root layout with sidebar navigation
+- [x] Theme provider (light/dark)
+- [x] Responsive design system
 
 ### 5.3 Pages
 
-- [ ] **Dashboard** (`/`):
-  - [ ] Project list with status badges
-  - [ ] Recent activity feed
-  - [ ] Spec health overview (passing/failing counts)
-  - [ ] Quick-action buttons
-- [ ] **Project View** (`/projects/[id]`):
-  - [ ] Project header with metadata
-  - [ ] Spec list with status filters
-  - [ ] ADR list
-  - [ ] Task summary
-  - [ ] Agent activity log
-- [ ] **Specification Browser** (`/specs`):
-  - [ ] Spec table with sorting
-  - [ ] Status filter dropdown
-  - [ ] Search/filter by tag
-  - [ ] Drift score indicators
-- [ ] **Spec Detail** (`/specs/[id]`):
-  - [ ] Full spec content rendered
-  - [ ] Graph visualization (mini)
-  - [ ] Related items panel
-  - [ ] Version history timeline
-  - [ ] Task status summary
-- [ ] **Spec Editor** (`/specs/new`):
-  - [ ] YAML editor with syntax highlighting
-  - [ ] Live field validation
-  - [ ] Field-level error messages
-  - [ ] Save button with validation summary
-- [ ] **Knowledge Graph Explorer** (`/graph`):
-  - [ ] Interactive force-directed graph (D3.js or vis-network)
-  - [ ] Node type color coding
-  - [ ] Click to inspect node details
-  - [ ] Filter by node type
-  - [ ] Search nodes
-- [ ] **Task Board** (`/tasks`):
-  - [ ] Kanban columns (pending, in_progress, completed)
-  - [ ] Drag-and-drop task reordering
-  - [ ] Task detail modal
-  - [ ] Filter by spec
-- [ ] **Documentation Hub** (`/docs`):
-  - [ ] File tree browser
-  - [ ] Markdown renderer
-  - [ ] Full-text search
-- [ ] **Settings** (`/settings`):
-  - [ ] Ollama model configuration
-  - [ ] Agent adapter selection
-  - [ ] ChromaDB path configuration
-  - [ ] File watcher toggle
-  - [ ] Health check display
+- [x] **Dashboard** (`/`):
+- [x] Project list with status badges
+  - [x] Recent activity feed
+  - [x] Spec health overview (passing/failing counts)
+  - [x] Quick-action buttons
+- [x] **Project View** (`/projects/[id]`):
+  - [x] Project header with metadata
+  - [x] Spec list with status filters
+  - [x] ADR list
+  - [x] Task summary
+  - [x] Agent activity log
+- [x] **Specification Browser** (`/specs`):
+  - [x] Spec table with sorting
+  - [x] Status filter dropdown
+  - [x] Search/filter by tag
+  - [x] Drift score indicators
+- [x] **Spec Detail** (`/specs/[id]`):
+  - [x] Full spec content rendered
+  - [x] Graph visualization (mini)
+  - [x] Related items panel
+  - [x] Version history timeline
+  - [x] Task status summary
+- [x] **Spec Editor** (`/specs/new`):
+  - [x] YAML editor with syntax highlighting
+  - [x] Live field validation
+  - [x] Field-level error messages
+  - [x] Save button with validation summary
+- [x] **Knowledge Graph Explorer** (`/graph`):
+  - [x] Interactive force-directed graph (Canvas-based)
+  - [x] Node type color coding
+  - [x] Click to inspect node details
+  - [x] Filter by node type
+  - [x] Search nodes
+- [x] **Task Board** (`/tasks`):
+  - [x] Kanban columns (pending, in_progress, completed)
+  - [x] Drag-and-drop task reordering
+  - [x] Task detail modal
+  - [x] Filter by spec
+- [x] **Documentation Hub** (`/docs`):
+  - [x] File tree browser
+  - [x] Markdown renderer
+  - [x] Full-text search
+- [x] **Settings** (`/settings`):
+  - [x] Ollama model configuration
+  - [x] Agent adapter selection
+  - [x] ChromaDB path configuration
+  - [x] File watcher toggle
+  - [x] Health check display
 
 ### 5.4 API Routes
 
-- [ ] `GET /api/projects` — List projects
-- [ ] `GET /api/projects/:id` — Project details
-- [ ] `GET /api/specs` — List specs (with filter)
-- [ ] `GET /api/specs/:id` — Spec detail
-- [ ] `POST /api/specs` — Create spec
-- [ ] `GET /api/graph` — Full graph
-- [ ] `GET /api/graph/query` — Graph queries
-- [ ] `GET /api/tasks` — Task list
-- [ ] `PUT /api/tasks/:id` — Update task
-- [ ] `GET /api/docs` — Doc tree
-- [ ] `GET /api/settings` — Get config
-- [ ] `PUT /api/settings` — Update config
-- [ ] `GET /api/health` — System health
+- [x] `GET /api/projects` — List projects
+- [x] `GET /api/projects/:id` — Project details
+- [x] `GET /api/specs` — List specs (with filter)
+- [x] `GET /api/specs/:id` — Spec detail
+- [x] `POST /api/specs` — Create spec
+- [x] `GET /api/graph` — Full graph
+- [x] `GET /api/graph/query` — Graph queries
+- [x] `GET /api/tasks` — Task list
+- [x] `PUT /api/tasks/:id` — Update task
+- [x] `GET /api/docs` — Doc tree
+- [x] `GET /api/settings` — Get config
+- [x] `PUT /api/settings` — Update config
+- [x] `GET /api/health` — System health
 
 ### 5.5 Components
 
-- [ ] `ui/` — shadcn/ui base components (button, card, input, select, table, etc.)
-- [ ] `spec-editor.tsx` — YAML editor with validation
-- [ ] `graph-visualization.tsx` — D3.js force-directed graph
+- [x] `ui/` — shadcn/ui base components (button, card, input, select, table, etc.)
+- [x] `spec-editor.tsx` — YAML editor with validation
+- [x] `graph-visualization.tsx` — Canvas force-directed graph
 - [ ] `task-board.tsx` — Kanban board
 - [ ] `project-card.tsx` — Project summary card
 - [ ] `agent-status.tsx` — Agent session display
@@ -489,24 +489,24 @@
 
 ### 6.2 Error Handling and Edge Cases
 
-- [ ] Ollama unavailable → clear error message
+- [x] Ollama unavailable → clear error message (ConnectionError with actionable text)
 - [ ] ChromaDB corruption → repair flow
-- [ ] SQLite locked → retry with backoff
-- [ ] Malformed .sspec YAML → parse error with line number
+- [x] SQLite locked → retry with backoff (3 retries with exponential delay)
+- [x] Malformed .sspec YAML → parse error with line number
 - [ ] Circular dependencies → detected and reported
 - [ ] Missing dependencies → dependency validation error
 - [ ] Large spec (>100 requirements) → reasonable performance
-- [ ] Empty project → graceful handling
-- [ ] Non-initialized directory → "run init first" message
+- [x] Empty project → graceful handling (API returns empty arrays, UI shows empty states)
+- [x] Non-initialized directory → "run init first" message (require_project_dir helper)
 - [ ] Permission denied → actionable error
 
 ### 6.3 Performance Optimization
 
 - [ ] ChromaDB query caching
-- [ ] SQLite connection pooling / WAL mode
+- [x] SQLite connection pooling / WAL mode (already enabled)
 - [ ] Graph serialization with incremental updates
 - [ ] Embedding caching (avoid re-embedding unchanged specs)
-- [ ] Lazy loading of ChromaDB collections
+- [x] Lazy loading of ChromaDB collections (lazy client + collection caching)
 - [ ] File watcher debounce tuning
 
 ### 6.4 Documentation Verification
@@ -563,7 +563,7 @@
 | Phase 2: CLI | ~50 | 50 |
 | Phase 3: GBNF Grammars | 10 | 10 |
 | Phase 4: Testing | ~30 | 27 |
-| Phase 5: UI | ~50 | 0 |
-| Phase 6: Polish | ~25 | 0 |
+| Phase 5: UI | ~58 | 54 |
+| Phase 6: Polish | ~30 | 7 |
 | Phase 7: Release | ~10 | 0 |
-| **Total** | **~302** | **224** |
+| **Total** | **~310** | **285** |

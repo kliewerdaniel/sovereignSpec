@@ -4,7 +4,7 @@ from pathlib import Path
 
 import click
 
-from sovereignspec.cli.main import resolve_project_dir, verbose_option
+from sovereignspec.cli.main import require_project_dir, verbose_option
 
 
 @click.group(name="graph")
@@ -19,7 +19,7 @@ def graph() -> None:
 @verbose_option
 def graph_query(project_dir: str | None, verbose: bool, what_breaks: str | None, affects_module: str | None) -> None:
     """Query the knowledge graph."""
-    base = Path(resolve_project_dir(project_dir))
+    base = Path(require_project_dir(project_dir))
     graph_path = base / ".sovereignspec" / "graph" / "graph.json"
 
     if not graph_path.exists():
@@ -56,7 +56,7 @@ def graph_query(project_dir: str | None, verbose: bool, what_breaks: str | None,
 @click.option("--project-dir", default=None)
 def graph_stats(project_dir: str | None) -> None:
     """Show graph statistics."""
-    base = Path(resolve_project_dir(project_dir))
+    base = Path(require_project_dir(project_dir))
     graph_path = base / ".sovereignspec" / "graph" / "graph.json"
 
     if not graph_path.exists():

@@ -111,7 +111,15 @@ class Specification(BaseModel):
 
     @classmethod
     def from_yaml(cls, content: str) -> Specification:
-        data: dict[str, Any] = yaml.safe_load(content)
+        try:
+            data: dict[str, Any] = yaml.safe_load(content)
+        except yaml.YAMLError as e:
+            line = ""
+            if hasattr(e, "problem_mark"):
+                line = f" at line {e.problem_mark.line + 1}"
+            raise ValueError(
+                f"Malformed YAML{line}: {e}"
+            ) from e
         if data is None:
             raise ValueError("YAML content is empty")
         return cls(**data)

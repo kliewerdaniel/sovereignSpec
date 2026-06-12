@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+import time
 from pathlib import Path
 from typing import Any
 
@@ -29,8 +30,18 @@ class Database:
     def conn(self) -> sqlite3.Connection:
         return self.connect()
 
-    def execute(self, sql: str, params: dict[str, Any] | tuple = ()) -> sqlite3.Cursor:
-        return self.conn.execute(sql, params)
+    def execute(self, sql: str, params: dict[str, Any] | tuple = (), retries: int = 3) -> sqlite3.Cursor:
+        last_error: Exception | None = None
+        for attempt in range(retries):
+            try:
+                return self.conn.execute(sql, params)
+            except sqlite3.OperationalError as e:
+                if "locked" in str(e) and attempt < retries - 1:
+                    time.sleep(0.1 * (attempt + 1))
+                    last_error = e
+                    continue
+                raise
+        raise last_error  # type: ignore[misc]
 
     def executemany(self, sql: str, seq: list[dict[str, Any] | tuple]) -> sqlite3.Cursor:
         return self.conn.executemany(sql, seq)

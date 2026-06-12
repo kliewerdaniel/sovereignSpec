@@ -5,7 +5,7 @@ from pathlib import Path
 
 import click
 
-from sovereignspec.cli.main import resolve_project_dir, verbose_option
+from sovereignspec.cli.main import require_project_dir, verbose_option
 
 
 @click.group(name="repo")
@@ -19,7 +19,7 @@ def repo() -> None:
 @verbose_option
 def repo_map(project_dir: str | None, verbose: bool, rebuild: bool) -> None:
     """Generate a repository map."""
-    base = Path(resolve_project_dir(project_dir))
+    base = Path(require_project_dir(project_dir))
     from sovereignspec.engine.repository import RepositoryMapper
 
     mapper = RepositoryMapper(str(base))
@@ -41,7 +41,7 @@ def repo_map(project_dir: str | None, verbose: bool, rebuild: bool) -> None:
 @verbose_option
 def repo_patterns(project_dir: str | None, verbose: bool) -> None:
     """Extract and display coding patterns."""
-    base = Path(resolve_project_dir(project_dir))
+    base = Path(require_project_dir(project_dir))
     from sovereignspec.engine.repository import RepositoryMapper, PatternExtractor
 
     mapper = RepositoryMapper(str(base))

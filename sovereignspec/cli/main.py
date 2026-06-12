@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import sys
+from pathlib import Path
 
 import click
 
@@ -17,6 +18,18 @@ EXIT_VALIDATION_FAILED = 5
 
 def resolve_project_dir(project_dir: str | None = None) -> str:
     return project_dir or os.environ.get("SOVEREIGNSPEC_PROJECT_DIR", os.getcwd())
+
+
+def require_project_dir(project_dir: str | None = None) -> str:
+    base = Path(resolve_project_dir(project_dir))
+    if not (base / ".sovereignspec").exists():
+        click.echo(
+            f"Error: {base} is not a SovereignSpec project.\n"
+            f"Run 'sovereignspec init {base}' to initialize.",
+            err=True,
+        )
+        sys.exit(EXIT_NO_PROJECT)
+    return str(base)
 
 
 def project_dir_option(f: click.decorators.FC) -> click.decorators.FC:
