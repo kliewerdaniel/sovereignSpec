@@ -63,7 +63,11 @@ class RepositoryMapper:
 
     def is_test_file(self, path: Path) -> bool:
         stem = path.stem.lower()
-        return any(stem.endswith(suffix) for suffix in [".test", ".spec", "_test", "_spec"])
+        return (
+            any(stem.endswith(suffix) for suffix in [".test", ".spec", "_test", "_spec"])
+            or stem.startswith("test_")
+            or stem.startswith("spec_")
+        )
 
     def detect_module_boundary(self, path: Path) -> bool:
         name = path.name.lower()

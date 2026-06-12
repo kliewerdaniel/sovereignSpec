@@ -100,9 +100,14 @@ class OllamaClient:
         resp.raise_for_status()
         return resp.json()["embedding"]
 
-    def health(self) -> bool:
+    def health(self, model: str | None = None) -> bool:
         try:
             resp = requests.get(f"{self.host}/api/tags", timeout=5)
-            return resp.status_code == 200
-        except requests.RequestException:
+            if resp.status_code != 200:
+                return False
+            if model:
+                tags = resp.json().get("models", [])
+                return any(t.get("name") == model for t in tags)
+            return True
+        except (requests.RequestException, ValueError):
             return False
