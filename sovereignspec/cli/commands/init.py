@@ -58,6 +58,19 @@ def init(path: str, force: bool, model: str, adapter: str) -> None:
         },
     }
 
-    config_path = ss_dir / "config.json"
-    config_path.write_text(json.dumps(config, indent=2))
-    click.echo(f"Initialized SovereignSpec project at {project_dir}")
+    # Write sovereignspec.yaml with correct llm config
+    import yaml
+    ss_yaml = {
+        "llm": {
+            "provider": "ollama",
+            "host": "http://localhost:11434",
+            "timeout": 120,
+            "models": [
+                {"name": model, "role": "generation"},
+                {"name": "nomic-embed-text", "role": "embeddings"},
+                {"name": "llama3.1:8b", "role": "analysis"},
+            ],
+        },
+        "adapter": adapter,
+    }
+    (ss_dir / "sovereignspec.yaml").write_text(yaml.safe_dump(ss_yaml, sort_keys=False))
