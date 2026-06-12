@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import click
+import requests
 
 from sovereignspec.cli.main import model_option, require_project_dir
 
@@ -36,7 +37,12 @@ def context(spec_id: str, project_dir: str | None, model: str | None, agent: str
     chroma = ChromaStore(str(base / ".sovereignspec" / "memory" / "chromadb"))
     rag = RAGPipeline(chroma, llm)
 
-    context_content = rag.build_context(spec_id, spec.to_yaml())
+    try:
+        context_content = rag.build_context(spec_id, spec.to_yaml())
+    except (requests.exceptions.HTTPError, RuntimeError) as e:
+        click.echo(f"Error building context: {e}", err=True)
+        click.echo("Ensure the embedding model is available: ollama pull nomic-embed-text", err=True)
+        raise click.Abort()
 
     output_path = context_path / f"{spec_id}_context.md"
     output_path.write_text(context_content)

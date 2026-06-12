@@ -81,7 +81,7 @@ class OllamaEmbeddingFunction(EmbeddingFunction):
             texts_to_embed = [t for _, t in uncached]
             resp = requests.post(
                 f"{self.host}/api/embeddings",
-                json={"model": self.model, "prompt": texts_to_embed[0]},
+                json={"model": self.model, "prompt": texts_to_embed},
                 timeout=30,
             )
             resp.raise_for_status()

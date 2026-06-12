@@ -13,10 +13,10 @@ def adr() -> None:
 
 
 @adr.command(name="create")
-@click.option("--title", prompt=True, help="ADR title")
-@click.option("--context", prompt=True, help="Decision context")
+@click.option("--title", default=None, help="ADR title")
+@click.option("--context", default=None, help="Decision context")
 @click.option("--project-dir", default=None)
-def adr_create(project_dir: str | None, title: str, context: str) -> None:
+def adr_create(project_dir: str | None, title: str | None, context: str | None) -> None:
     """Create a new Architecture Decision Record."""
     base = Path(require_project_dir(project_dir))
     adr_dir = base / ".sovereignspec" / "adr"
@@ -26,6 +26,11 @@ def adr_create(project_dir: str | None, title: str, context: str) -> None:
     next_num = max((int(f.stem.split("-")[1]) for f in existing), default=0) + 1
 
     from sovereignspec.models.adr import ADR
+
+    if not title:
+        title = click.prompt("Title", default="Untitled ADR")
+    if not context:
+        context = click.prompt("Context", default="No context provided")
 
     record = ADR(
         number=next_num,
