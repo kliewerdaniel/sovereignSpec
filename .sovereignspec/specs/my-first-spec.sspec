@@ -1,0 +1,15 @@
+id: my-first-spec
+title: My First Spec
+version: 1.0.0
+status: draft
+purpose: ''
+requirements: []
+constraints: []
+acceptance_criteria: []
+dependencies: []
+test_cases: []
+security_requirements: []
+performance_requirements: []
+architecture_notes: ''
+implementation_hints: []
+tags: []

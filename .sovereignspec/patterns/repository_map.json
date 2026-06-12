@@ -1,0 +1,518 @@
+{
+  "$schema": "sovereignspec-repository-map",
+  "project_name": "",
+  "analyzed_at": "",
+  "language_stats": {
+    "markdown": {
+      "files": 21,
+      "lines": 0,
+      "size_bytes": 349721,
+      "percentage": 35.8
+    },
+    "unknown": {
+      "files": 3,
+      "lines": 0,
+      "size_bytes": 507895,
+      "percentage": 52.0
+    },
+    "python": {
+      "files": 46,
+      "lines": 0,
+      "size_bytes": 114538,
+      "percentage": 11.7
+    },
+    "sql": {
+      "files": 1,
+      "lines": 0,
+      "size_bytes": 4962,
+      "percentage": 0.5
+    }
+  },
+  "entrypoints": [
+    {
+      "path": "sovereignspec/cli/main.py",
+      "language": "python",
+      "type": "app-entry"
+    }
+  ],
+  "modules": [
+    {
+      "path": "docs",
+      "type": "module",
+      "file_count": 9
+    },
+    {
+      "path": "docs/adr",
+      "type": "module",
+      "file_count": 6
+    },
+    {
+      "path": "sovereignspec",
+      "type": "module",
+      "file_count": 2
+    },
+    {
+      "path": "sovereignspec/adapters",
+      "type": "module",
+      "file_count": 13
+    },
+    {
+      "path": "sovereignspec/cli",
+      "type": "module",
+      "file_count": 2
+    },
+    {
+      "path": "sovereignspec/cli/commands",
+      "type": "module",
+      "file_count": 11
+    },
+    {
+      "path": "sovereignspec/engine",
+      "type": "module",
+      "file_count": 9
+    },
+    {
+      "path": "sovereignspec/models",
+      "type": "module",
+      "file_count": 6
+    },
+    {
+      "path": "sovereignspec/persistence",
+      "type": "module",
+      "file_count": 3
+    },
+    {
+      "path": "sovereignspec/persistence/migrations",
+      "type": "module",
+      "file_count": 1
+    }
+  ],
+  "files": [
+    {
+      "path": "docSpec.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 38201
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 51251
+    },
+    {
+      "path": "LICENSE",
+      "language": "unknown",
+      "type": "source",
+      "size_bytes": 1071
+    },
+    {
+      "path": "uv.lock",
+      "language": "unknown",
+      "type": "source",
+      "size_bytes": 505584
+    },
+    {
+      "path": "pyproject.toml",
+      "language": "unknown",
+      "type": "source",
+      "size_bytes": 1240
+    },
+    {
+      "path": "2026-06-12-sovereignspec-local-first-spec-driven-development.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 16212
+    },
+    {
+      "path": "todo.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 21637
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 14193
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 8612
+    },
+    {
+      "path": "sovereignspec/__init__.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 22
+    },
+    {
+      "path": "sovereignspec/__main__.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 77
+    },
+    {
+      "path": "docs/CLI_REFERENCE.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 18351
+    },
+    {
+      "path": "docs/SPEC_DRIVEN_WORKFLOW.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 17121
+    },
+    {
+      "path": "docs/GBNF_GRAMMARS.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 17859
+    },
+    {
+      "path": "docs/SPECIFICATION_FORMAT.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 25691
+    },
+    {
+      "path": "docs/DEVELOPMENT.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 15184
+    },
+    {
+      "path": "docs/INSTALLATION.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 14569
+    },
+    {
+      "path": "docs/AGENT_INTEGRATION.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 28081
+    },
+    {
+      "path": "docs/KNOWLEDGE_GRAPH.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 26019
+    },
+    {
+      "path": "docs/SECURITY.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 9757
+    },
+    {
+      "path": "docs/adr/ADR-002.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 4247
+    },
+    {
+      "path": "docs/adr/ADR-006.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 4900
+    },
+    {
+      "path": "docs/adr/ADR-003.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 4618
+    },
+    {
+      "path": "docs/adr/ADR-004.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 3804
+    },
+    {
+      "path": "docs/adr/ADR-001.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 4380
+    },
+    {
+      "path": "docs/adr/ADR-005.md",
+      "language": "markdown",
+      "type": "source",
+      "size_bytes": 5034
+    },
+    {
+      "path": "sovereignspec/models/task.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 654
+    },
+    {
+      "path": "sovereignspec/models/artifact.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 667
+    },
+    {
+      "path": "sovereignspec/models/graph.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 3462
+    },
+    {
+      "path": "sovereignspec/models/__init__.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 843
+    },
+    {
+      "path": "sovereignspec/models/spec.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 3555
+    },
+    {
+      "path": "sovereignspec/models/adr.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 3004
+    },
+    {
+      "path": "sovereignspec/cli/__init__.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 0
+    },
+    {
+      "path": "sovereignspec/cli/main.py",
+      "language": "python",
+      "type": "entrypoint",
+      "size_bytes": 2782
+    },
+    {
+      "path": "sovereignspec/adapters/roocode.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 1183
+    },
+    {
+      "path": "sovereignspec/adapters/codex.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 1911
+    },
+    {
+      "path": "sovereignspec/adapters/generic.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 404
+    },
+    {
+      "path": "sovereignspec/adapters/__init__.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 1417
+    },
+    {
+      "path": "sovereignspec/adapters/aider.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 869
+    },
+    {
+      "path": "sovereignspec/adapters/opencode.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 2070
+    },
+    {
+      "path": "sovereignspec/adapters/windsurf.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 1071
+    },
+    {
+      "path": "sovereignspec/adapters/cline.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 1124
+    },
+    {
+      "path": "sovereignspec/adapters/continue_.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 2419
+    },
+    {
+      "path": "sovereignspec/adapters/gemini_cli.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 1104
+    },
+    {
+      "path": "sovereignspec/adapters/base.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 579
+    },
+    {
+      "path": "sovereignspec/adapters/claude_code.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 4018
+    },
+    {
+      "path": "sovereignspec/adapters/cursor.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 1315
+    },
+    {
+      "path": "sovereignspec/persistence/db.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 14423
+    },
+    {
+      "path": "sovereignspec/persistence/__init__.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 146
+    },
+    {
+      "path": "sovereignspec/persistence/chroma.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 3820
+    },
+    {
+      "path": "sovereignspec/engine/validator.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 8325
+    },
+    {
+      "path": "sovereignspec/engine/compiler.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 4017
+    },
+    {
+      "path": "sovereignspec/engine/graph.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 4527
+    },
+    {
+      "path": "sovereignspec/engine/drift.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 2611
+    },
+    {
+      "path": "sovereignspec/engine/__init__.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 763
+    },
+    {
+      "path": "sovereignspec/engine/grammar.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 3254
+    },
+    {
+      "path": "sovereignspec/engine/rag.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 2424
+    },
+    {
+      "path": "sovereignspec/engine/contradiction.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 1171
+    },
+    {
+      "path": "sovereignspec/engine/repository.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 6938
+    },
+    {
+      "path": "sovereignspec/persistence/migrations/001_initial.sql",
+      "language": "sql",
+      "type": "source",
+      "size_bytes": 4962
+    },
+    {
+      "path": "sovereignspec/cli/commands/memory.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 3503
+    },
+    {
+      "path": "sovereignspec/cli/commands/graph.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 2805
+    },
+    {
+      "path": "sovereignspec/cli/commands/__init__.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 0
+    },
+    {
+      "path": "sovereignspec/cli/commands/docs.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 2372
+    },
+    {
+      "path": "sovereignspec/cli/commands/spec.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 5399
+    },
+    {
+      "path": "sovereignspec/cli/commands/adr.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 1910
+    },
+    {
+      "path": "sovereignspec/cli/commands/context.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 1544
+    },
+    {
+      "path": "sovereignspec/cli/commands/repo.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 2117
+    },
+    {
+      "path": "sovereignspec/cli/commands/sovereign.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 3284
+    },
+    {
+      "path": "sovereignspec/cli/commands/init.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 2288
+    },
+    {
+      "path": "sovereignspec/cli/commands/doctor.py",
+      "language": "python",
+      "type": "source",
+      "size_bytes": 2347
+    }
+  ]
+}

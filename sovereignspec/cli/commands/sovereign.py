@@ -1,0 +1,84 @@
+from __future__ import annotations
+
+import click
+
+from sovereignspec.cli.main import resolve_project_dir, model_option
+
+
+@click.command(name="sovereign-constitution")
+@click.argument("description", required=False)
+@click.option("--project-dir", default=None)
+@model_option
+def sovereign_constitution(description: str | None, project_dir: str | None, model: str | None) -> None:
+    """Generate or update the project constitution from a description."""
+    base = resolve_project_dir(project_dir)
+    if description:
+        click.echo(f"Generating constitution for: {description}")
+        click.echo("  (LLM generation not yet connected — placeholder)")
+    else:
+        click.echo("Usage: sovereignspec sovereign-constitution <description>")
+
+
+@click.command(name="specify")
+@click.argument("description", nargs=-1)
+@click.option("--project-dir", default=None)
+@model_option
+def specify(description: tuple[str, ...], project_dir: str | None, model: str | None) -> None:
+    """Define a new feature spec from a description."""
+    desc = " ".join(description)
+    if desc:
+        click.echo(f"Creating spec from: {desc}")
+        click.echo("  (LLM generation not yet connected — placeholder)")
+    else:
+        click.echo("Usage: sovereignspec specify <feature description>")
+
+
+@click.command(name="clarify")
+@click.argument("spec_id")
+@click.option("--project-dir", default=None)
+@model_option
+def clarify(spec_id: str, project_dir: str | None, model: str | None) -> None:
+    """RAG-grounded clarification of a spec."""
+    click.echo(f"Clarification context for {spec_id}: (not yet connected)")
+
+
+@click.command(name="plan")
+@click.argument("spec_id")
+@click.option("--tech-stack", help="Technology stack hints")
+@click.option("--project-dir", default=None)
+@model_option
+def plan(spec_id: str, project_dir: str | None, model: str | None, tech_stack: str | None) -> None:
+    """Generate technical implementation plan for a spec."""
+    click.echo(f"Generating implementation plan for {spec_id}...")
+    click.echo("  (LLM generation not yet connected — placeholder)")
+
+
+@click.command(name="tasks")
+@click.argument("spec_id")
+@click.option("--project-dir", default=None)
+@model_option
+def tasks_cmd(spec_id: str, project_dir: str | None, model: str | None) -> None:
+    """Generate task decomposition for a spec."""
+    click.echo(f"Generating tasks for {spec_id}...")
+    click.echo("  (LLM generation not yet connected — placeholder)")
+
+
+@click.command(name="analyze")
+@click.argument("spec_id", required=False)
+@click.option("--all", "all_flag", is_flag=True, help="Analyze all specs")
+@click.option("--project-dir", default=None)
+def analyze(spec_id: str | None, project_dir: str | None, all_flag: bool) -> None:
+    """Cross-spec contradiction and drift analysis."""
+    target = "--all" if all_flag else spec_id
+    click.echo(f"Analyzing {target}...")
+    click.echo("  (not yet connected)")
+
+
+@click.command(name="implement")
+@click.argument("spec_id")
+@click.option("--project-dir", default=None)
+@model_option
+def implement(spec_id: str, project_dir: str | None, model: str | None) -> None:
+    """Execute implementation against spec constraints."""
+    click.echo(f"Building agent context package for {spec_id}...")
+    click.echo("  (not yet connected)")

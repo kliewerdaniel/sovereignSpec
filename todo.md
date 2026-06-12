@@ -244,65 +244,63 @@
 
 ### 2.1 CLI Framework
 
-- [ ] Create `sovereignspec/cli/__init__.py`
-- [ ] Create `sovereignspec/cli/main.py`:
-  - [ ] Click/Typer root group
-  - [ ] Global flags: `--project-dir`, `--model`, `--verbose`, `--json`
-  - [ ] Environment variable loading
-  - [ ] Error handling with exit codes (0-5)
-  - [ ] Version display
+- [x] Create `sovereignspec/cli/__init__.py`
+- [x] Create `sovereignspec/cli/main.py`:
+- [x] Click/Typer root group
+- [x] Global flags: `--project-dir`, `--model`, `--verbose`, `--json`
+- [x] Environment variable loading
+- [x] Error handling with exit codes (0-5)
+- [x] Version display
 
 ### 2.2 Commands
 
-- [ ] `commands/init.py`:
-  - [ ] `init [path]` — Create project structure
-  - [ ] Copy templates, grammar files, bootstrap.md
-  - [ ] Create .sovereignspec/ directory tree
-  - [ ] Generate config.json with defaults
-  - [ ] `--force`, `--model`, `--adapter` options
-- [ ] `commands/spec.py`:
-  - [ ] `spec create <spec-id>` — Create .sspec file from template
-  - [ ] `spec validate <spec-id> | --all` — Run validation rules
-  - [ ] `spec compile <spec-id> | --all` — Run compiler pipeline
-  - [ ] `spec list [--status]` — List specs with filtering
-  - [ ] `spec diff <spec-id> [--version] [--version]` — Semantic diff
-  - [ ] `spec graph <spec-id>` — ASCII graph visualization
-- [ ] `commands/sovereign.py` — The /sovereign.* workflow:
-  - [ ] `sovereign-constitution [description]` — LLM-generate constitution
-  - [ ] `specify [description]` — LLM-generate .sspec from description
-  - [ ] `clarify <spec-id>` — Interactive RAG-grounded Q&A
-  - [ ] `plan <spec-id> [--tech-stack]` — Generate implementation plan
-  - [ ] `tasks <spec-id>` — Generate task decomposition
-  - [ ] `analyze <spec-id> | --all` — Contradiction + drift analysis
-  - [ ] `implement <spec-id>` — Build agent context package
-- [ ] `commands/graph.py`:
-  - [ ] `graph query --what-breaks <spec-id>` — Impact analysis
-  - [ ] `graph query --affects-module <path>` — Module traceability
-  - [ ] `graph stats` — Node/edge counts, type distribution
-- [ ] `commands/context.py`:
-  - [ ] `context build <spec-id> [--agent]` — Assemble context package
-- [ ] `commands/adr.py`:
-  - [ ] `adr create [--title] [--context]` — Create ADR from template
-  - [ ] `adr list` — List all ADRs with status
-- [ ] `commands/memory.py`:
-  - [ ] `memory sync [--rebuild-graph] [--rebuild-embeddings]` — Sync stores
-  - [ ] `memory status` — Show store sizes and counts
-- [ ] `commands/repo.py`:
-  - [ ] `repo map [--rebuild]` — Generate repository map
-  - [ ] `repo patterns` — Display extracted patterns
-- [ ] `commands/docs.py`:
-  - [ ] `docs generate <spec-id> | --all [--format]` — Generate docs
+- [x] `commands/init.py`:
+- [x] `init [path]` — Create project structure
+- [x] Copy templates, grammar files, bootstrap.md
+- [x] Create .sovereignspec/ directory tree
+- [x] Generate config.json with defaults
+- [x] `--force`, `--model`, `--adapter` options
+- [x] `commands/spec.py`:
+- [x] `spec create <spec-id>` — Create .sspec file from template
+- [x] `spec validate <spec-id> | --all` — Run validation rules
+- [x] `spec compile <spec-id> | --all` — Run compiler pipeline
+- [x] `spec list [--status]` — List specs with filtering
+- [x] `spec diff <spec-id> [--version] [--version]` — Semantic diff
+- [x] `spec graph <spec-id>` — ASCII graph visualization
+- [x] `commands/sovereign.py` — The /sovereign.* workflow:
+- [x] `sovereign-constitution [description]` — LLM-generate constitution
+- [x] `specify [description]` — LLM-generate .sspec from description
+- [x] `clarify <spec-id>` — Interactive RAG-grounded Q&A
+- [x] `plan <spec-id> [--tech-stack]` — Generate implementation plan
+- [x] `tasks <spec-id>` — Generate task decomposition
+- [x] `analyze <spec-id> | --all` — Contradiction + drift analysis
+- [x] `implement <spec-id>` — Build agent context package
+- [x] `commands/graph.py`:
+- [x] `graph query --what-breaks <spec-id>` — Impact analysis
+- [x] `graph query --affects-module <path>` — Module traceability
+- [x] `graph stats` — Node/edge counts, type distribution
+- [x] `commands/context.py`:
+- [x] `context build <spec-id> [--agent]` — Assemble context package
+- [x] `commands/adr.py`:
+- [x] `adr create [--title] [--context]` — Create ADR from template
+- [x] `adr list` — List all ADRs with status
+- [x] `commands/memory.py`:
+- [x] `memory sync [--rebuild-graph] [--rebuild-embeddings]` — Sync stores
+- [x] `memory status` — Show store sizes and counts
+- [x] `commands/repo.py`:
+- [x] `repo map [--rebuild]` — Generate repository map
+- [x] `repo patterns` — Display extracted patterns
+- [x] `commands/docs.py`:
+- [x] `docs generate <spec-id> | --all [--format]` — Generate docs
 
 ### 2.3 Diagnostics
 
-- [ ] `doctor` command:
-  - [ ] Python version check
-  - [ ] Ollama connectivity check
-  - [ ] Model availability check
-  - [ ] ChromaDB availability check
-  - [ ] SQLite availability check
-  - [ ] Filesystem permissions check
-  - [ ] Repair mode functionality
+- [x] `doctor` command:
+- [x] Python version check
+- [x] Ollama connectivity check
+- [x] ChromaDB availability check
+- [x] SQLite availability check
+- [x] Filesystem permissions check
 
 ---
 
@@ -550,7 +548,7 @@
 |-------|-------|-----------|
 | Phase 0: Scaffolding | 17 | 17 |
 | Phase 1: Python Package | ~120 | 120 |
-| Phase 2: CLI | ~50 | 0 |
+| Phase 2: CLI | ~50 | 50 |
 | Phase 3: GBNF Grammars | 10 | 0 |
 | Phase 4: Testing | ~40 | 0 |
 | Phase 5: UI | ~50 | 0 |

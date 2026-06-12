@@ -1,0 +1,13 @@
+{
+  "$schema": "sovereignspec-pattern-library",
+  "patterns": [
+    {
+      "id": "pattern-snake_case-variables",
+      "type": "naming",
+      "name": "snake_case-variables",
+      "description": "Variables use snake_case naming",
+      "example": "",
+      "confidence": 0.85
+    }
+  ]
+}
