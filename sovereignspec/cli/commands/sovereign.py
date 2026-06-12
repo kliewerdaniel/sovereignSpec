@@ -3,6 +3,7 @@ from __future__ import annotations
 import click
 
 from sovereignspec.cli.main import model_option, require_project_dir
+from sovereignspec.engine.grammar import OllamaClient
 
 
 @click.command(name="sovereign-constitution")
@@ -14,7 +15,9 @@ def sovereign_constitution(description: str | None, project_dir: str | None, mod
     base = require_project_dir(project_dir)
     if description:
         click.echo(f"Generating constitution for: {description}")
-        click.echo("  (LLM generation not yet connected — placeholder)")
+        client = OllamaClient()
+        resp = client.generate(prompt=description, model=model or "qwen2.5-coder:32b")
+        click.echo(resp.get("response", ""))
     else:
         click.echo("Usage: sovereignspec sovereign-constitution <description>")
 
@@ -39,7 +42,10 @@ def specify(description: tuple[str, ...], project_dir: str | None, model: str | 
 @model_option
 def clarify(spec_id: str, project_dir: str | None, model: str | None) -> None:
     """RAG-grounded clarification of a spec."""
-    click.echo(f"Clarification context for {spec_id}: (not yet connected)")
+    client = OllamaClient()
+        prompt = f"Provide clarification context for spec {spec_id}."
+        resp = client.generate(prompt=prompt, model=model or "qwen2.5-coder:32b")
+        click.echo(resp.get("response", ""))
 
 
 @click.command(name="plan")
