@@ -17,6 +17,15 @@ def spec() -> None:
 @click.argument("spec_id")
 @click.option("--project-dir", default=None)
 def spec_create(spec_id: str, project_dir: str | None) -> None:
+    # Auto-convert title to kebab-case ID if needed
+    import re, click
+    if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", spec_id):
+        # Assume it's a title; convert to kebab-case
+        generated_id = re.sub(r"[^a-zA-Z0-9]+", "-", spec_id.strip().lower())
+        generated_id = re.sub(r"-+", "-", generated_id).strip("-")
+        if not generated_id:
+            raise click.ClickException("Invalid specification ID or title.")
+        spec_id = generated_id
     """Create a new .sspec specification file."""
     base = Path(require_project_dir(project_dir))
     specs_dir = base / ".sovereignspec" / "specs"
@@ -27,9 +36,11 @@ def spec_create(spec_id: str, project_dir: str | None) -> None:
         click.echo(f"Error: {file_path} already exists.", err=True)
         raise click.Abort()
 
+    # Preserve original title for display
+    original_title = spec_id.replace("-", " ").title() if re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", spec_id) else spec_id
     spec = Specification(
         id=spec_id,
-        title=spec_id.replace("-", " ").title(),
+        title=original_title,
         version="1.0.0",
         status="draft",
     )
