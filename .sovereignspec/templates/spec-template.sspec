@@ -1,0 +1,104 @@
+# SovereignSpec Specification Template
+# File: specs/{spec-id}.sspec
+# 
+# This is a template for creating new specifications.
+# Replace all placeholder values with your actual specification content.
+# Required fields are marked with [REQUIRED].
+# Optional fields are marked with [OPTIONAL] and can be deleted if unused.
+
+# [REQUIRED] kebab-case unique identifier
+# Pattern: /^[a-z0-9]+(-[a-z0-9]+)*$/
+# Example: jwt-authentication
+id: your-spec-id
+
+# [REQUIRED] Human-readable spec title (5-60 characters)
+title: Your Specification Title
+
+# [REQUIRED] Semver version (major.minor.patch)
+# Start at 1.0.0. Increment major for breaking changes,
+# minor for additions, patch for clarifications.
+version: 1.0.0
+
+# [REQUIRED] Lifecycle status
+# Valid values: draft | validated | approved | active | implemented | verified | archived
+status: draft
+
+# [REQUIRED] 1-3 sentence description of what this spec accomplishes
+# Must contain a verb describing the action.
+# Example: "Provide secure JWT-based authentication with access and refresh token flows."
+purpose: Describe the purpose of this specification in 1-3 sentences.
+
+# [REQUIRED] Functional requirements (minimum 1)
+# Each requirement must contain an action verb and a measurable outcome.
+# Format: "System must [action] [object] [condition]."
+requirements:
+  - System must [action] [object] [condition].
+  - System must [action] [object] [condition].
+
+# [REQUIRED] Hard constraints (minimum 1)
+# These are non-negotiable limits that cannot be violated.
+# Examples: technology restrictions, architecture decisions, security requirements.
+constraints:
+  - First hard constraint that cannot be violated.
+  - Second hard constraint.
+
+# [REQUIRED] Testable pass/fail criteria (minimum 1)
+# Each criterion must be objectively verifiable.
+# Format: [HTTP method/action] [endpoint/component] [condition] [expected result]
+acceptance_criteria:
+  - Criterion 1 that defines when this spec is correctly implemented.
+  - Criterion 2 that defines another verification point.
+
+# [REQUIRED] Spec IDs this depends on (can be empty)
+# List spec IDs that must be at minimum in "validated" status before this spec.
+dependencies: []
+# Example with dependencies:
+# dependencies:
+#   - jwt-authentication
+#   - user-profile-api
+
+# [REQUIRED] Structured test cases (minimum 1)
+# Each test case has five fields: id, description, given, when, then.
+# Test ID format: {SPEC-ABBREV}-{NNN}
+test_cases:
+  - id: SPEC-001
+    description: Brief description of what is being tested.
+    given: Preconditions that must be set up before the test.
+    when: The action being taken.
+    then: The expected outcome.
+
+# [OPTIONAL] Security-specific requirements
+# Required if this spec involves authentication, authorization, or sensitive data.
+# security_requirements:
+#   - Security control 1.
+#   - Security control 2.
+
+# [OPTIONAL] Performance targets
+# Each entry has a metric name and a threshold value.
+# performance_requirements:
+#   - metric: p95 response time
+#     threshold: < 200ms
+
+# [OPTIONAL] Free-form architectural guidance
+# Usage of specific patterns, libraries, or structural decisions.
+# architecture_notes: >
+#   Architectural guidance for the implementer.
+
+# [OPTIONAL] Non-functional requirements
+# non_functional_requirements:
+#   - NFR 1.
+#   - NFR 2.
+
+# [OPTIONAL] ADR IDs that provide architectural context
+# related_adrs:
+#   - ADR-004
+
+# [OPTIONAL] Implementation hints for the coding agent
+# implementation_hints:
+#   - Place auth middleware in src/middleware/auth.ts.
+
+# [OPTIONAL] Categorization tags
+# Each tag must be lowercase alphanumeric with hyphens.
+# tags:
+#   - authentication
+#   - security
