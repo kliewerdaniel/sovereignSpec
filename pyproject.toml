@@ -1,6 +1,6 @@
 [project]
 name = "sovereignspec"
-version = "0.1.0"
+version = "1.0.1"
 description = "Local-first, fully offline Spec-Driven Development engine for AI coding agents"
 readme = "README.md"
 license = "MIT"
