@@ -204,6 +204,219 @@ my-project/
 
 ---
 
+## Agent Skill Integration
+
+SovereignSpec ships as a native skill for OpenCode and can be installed as a skill for any other file-aware coding agent (Claude Code, Cursor, Cline, Codex CLI, Gemini CLI, etc.). The skill instructs the agent to follow the SDD pipeline whenever you scaffold a new application or start a feature — all fully local, no cloud calls.
+
+### How the Skill Works
+
+The skill is a `SKILL.md` file placed in a directory where the agent looks for skills. When active, it provides the agent with:
+
+- The complete sovereignspec command reference
+- Step-by-step SDD workflow instructions (init → constitution → specify → validate → compile → clarify → plan → tasks → analyze → implement)
+- The agent contract (8 rules for implementing against specs)
+- The `.sspec` format reference
+- Knowledge graph update procedures
+- ADR creation and artifact registration workflows
+
+The agent auto-loads the skill when your request matches its description (scaffolding a new app, planning a feature, or mentioning SDD/sovereignspec/.sspec).
+
+### Install for OpenCode
+
+The skill is located at:
+
+```
+~/.agents/skills/sovereignspec/SKILL.md
+```
+
+OpenCode discovers skills automatically by searching these paths (in order):
+
+| Location | Scope |
+|----------|-------|
+| `.opencode/skills/<name>/SKILL.md` | Project-level |
+| `~/.config/opencode/skills/<name>/SKILL.md` | Global |
+| `.claude/skills/<name>/SKILL.md` | Project (Claude-compatible) |
+| `~/.claude/skills/<name>/SKILL.md` | Global (Claude-compatible) |
+| `.agents/skills/<name>/SKILL.md` | Project (agent-compatible) |
+| `~/.agents/skills/<name>/SKILL.md` | Global (agent-compatible) |
+
+To install, create the file at any of these paths. For global availability across all projects:
+
+```bash
+mkdir -p ~/.agents/skills/sovereignspec
+```
+
+Then create `~/.agents/skills/sovereignspec/SKILL.md` with the full skill content. The skill auto-activates — no configuration needed.
+
+### Create the Skill
+
+Paste the following content into the `SKILL.md` file:
+
+<details>
+<summary>Click to expand the full SKILL.md content</summary>
+
+```markdown
+---
+name: sovereignspec
+description: "Local-first Spec-Driven Development (SDD) engine for planning and building applications. Uses sovereignspec CLI to create structured .sspec specifications, establish project constitutions, generate implementation plans, decompose into tasks, and track work through a knowledge graph — all fully offline via Ollama. Use this skill when the user wants to scaffold a new application, plan a feature, write specifications before coding, or follow a spec-driven development workflow. Also use when the user mentions sovereignspec, .sspec, SDD, spec-driven development, local-first development, or wants a structured approach to building software without cloud dependencies."
+---
+
+# SovereignSpec Skill
+
+Local-First Spec-Driven Development (SDD) Engine powered by sovereignspec.
+
+## What This Skill Does
+
+This skill guides you through the sovereignspec pipeline: a fully offline, local-first alternative to Spec Kit that uses structured `.sspec` files, a knowledge graph, and GBNF grammar-constrained local LLM inference (via Ollama) to plan, specify, and implement applications.
+
+The core thesis: **Human -> Specification -> SovereignSpec -> Agent -> Implementation**. The specification is the durable artifact. The code is disposable. Nothing leaves your machine.
+
+## When to Use This Skill
+
+Use this skill when:
+
+- **Scaffolding a new application** - before writing any code, establish specs and a constitution
+- **Planning a feature** - define requirements, constraints, and acceptance criteria in structured `.sspec` format
+- **Following SDD workflow** - the user wants constitution -> specify -> clarify -> plan -> tasks -> implement
+- **Avoiding cloud dependency** - the user wants Spec Kit capabilities but fully local (no cloud LLM calls)
+- **The user mentions** sovereignspec, .sspec, SDD, spec-driven development, local-first development, or structured specification
+
+## Prerequisites
+
+Before running any sovereignspec commands, verify:
+
+1. **sovereignspec CLI installed** - Run `sovereignspec doctor` to check
+2. **Ollama running** - `ollama serve` should be active
+3. **Ollama model available** - works best with code-capable local models
+
+## The SovereignSpec Workflow
+
+### Step 1: Initialize the Project
+
+```bash
+sovereignspec init . --model qwen2.5-coder:32b
+```
+
+This creates the `.sovereignspec/` directory with bootstrap.md, specs/, adr/, tasks/, patterns/, graph/, and more.
+
+### Step 2: Establish the Constitution
+
+```bash
+sovereignspec sovereign-constitution "Build a REST API with Python FastAPI, SQLite, and Pydantic. No ORM. Async handlers."
+```
+
+If the command is a placeholder, create `.sovereignspec/constitution.md` manually with tech stack, architectural rules, and non-negotiables.
+
+### Step 3: Specify What to Build
+
+```bash
+sovereignspec spec create blog-posts --title "Blog Posts API"
+```
+
+Edit the generated `.sovereignspec/specs/blog-posts.sspec` with requirements, constraints, acceptance criteria, and test cases.
+
+### Step 4: Validate & Compile
+
+```bash
+sovereignspec spec validate blog-posts
+sovereignspec spec compile blog-posts
+```
+
+### Step 5: Plan, Task, and Implement
+
+```bash
+sovereignspec plan blog-posts
+sovereignspec tasks blog-posts
+sovereignspec implement blog-posts
+```
+
+## The Agent Contract
+
+When implementing against sovereignspec specs, you must:
+
+1. Read specs before writing any code
+2. Honor all spec constraints (they are non-negotiable)
+3. Update task status on completion
+4. Generate tests for every feature
+5. Generate documentation for every module
+6. Update the knowledge graph (`.sovereignspec/graph/graph.json`)
+7. Record architectural decisions as ADR drafts
+8. Register artifacts in `.sovereignspec/agents/opencode/artifacts.json`
+
+## Command Reference
+
+| Command | Description |
+|---------|-------------|
+| `sovereignspec init [path]` | Initialize a new project |
+| `sovereignspec doctor` | Verify system health |
+| `sovereignspec spec create <id>` | Create a blank .sspec file |
+| `sovereignspec spec validate <id>` | Run validation rules |
+| `sovereignspec spec compile <id>` | Run the 12-step compiler |
+| `sovereignspec spec list` | List specs |
+| `sovereignspec sovereign-constitution <text>` | Set project constitution |
+| `sovereignspec specify <description>` | Generate spec from description |
+| `sovereignspec clarify <id>` | RAG-grounded clarification |
+| `sovereignspec plan <id>` | Generate implementation plan |
+| `sovereignspec tasks <id>` | Decompose plan into tasks |
+| `sovereignspec analyze <id>` | Cross-spec consistency analysis |
+| `sovereignspec implement <id>` | Execute implementation |
+| `sovereignspec adr create` | Create Architecture Decision Record |
+| `sovereignspec context <id> [--agent]` | Assemble agent context package |
+| `sovereignspec repo map` | Generate repository map |
+| `sovereignspec docs generate <id>` | Generate documentation |
+
+Full `.sspec` format, knowledge graph node/edge types, and ADR templates are documented in the [bootstrap.md](.sovereignspec/bootstrap.md).
+```
+
+</details>
+
+### Install for Other Agents
+
+The same skill file works with any agent that supports SKILL.md discovery. Place it at the appropriate path for your agent:
+
+| Agent | Path |
+|-------|------|
+| **Claude Code** | `~/.claude/skills/sovereignspec/SKILL.md` |
+| **Cursor** | `.cursor/rules/sovereignspec.mdc` (converted to Cursor rule format) |
+| **Cline** | `.clinerules` (append the skill content) |
+| **Codex CLI** | `.opencode/skills/sovereignspec/SKILL.md` or `AGENTS.md` |
+| **Gemini CLI** | `~/.gemini/skills/sovereignspec/SKILL.md` |
+| **Windsurf** | `.windsurfrules` (append the skill content) |
+| **Roo Code** | `.roo/rules/sovereignspec.md` |
+| **Generic** | `.sovereignspec/bootstrap.md` (always loaded by any file-aware agent) |
+
+### Per-Agent Skill Permissions (OpenCode)
+
+To control skill permissions in OpenCode, add to `~/.config/opencode/opencode.jsonc`:
+
+```jsonc
+{
+  "permission": {
+    "skill": {
+      "sovereignspec": "allow"
+    }
+  }
+}
+```
+
+To disable for a specific agent profile:
+
+```jsonc
+{
+  "agent": {
+    "plan": {
+      "permission": {
+        "skill": {
+          "sovereignspec": "deny"
+        }
+      }
+    }
+  }
+}
+```
+
+---
+
 ## Contributing
 
 Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) and open a PR against the `main` branch.
